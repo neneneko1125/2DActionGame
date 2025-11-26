@@ -1,9 +1,15 @@
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Player_S : MonoBehaviour
 {
+    public static Player_S Instance { get; private set; }
+
+
     [Header("追従するオブジェクト")]
     [SerializeField] private GameObject _target;
+
+    private GameObject _enemy;
 
     [Header("追従速度(小さい値ほど速い)")]
     [SerializeField] private float _followSpeed = 0.1f;
@@ -13,6 +19,40 @@ public class Player_S : MonoBehaviour
     [Header("移動制限範囲")]
     [SerializeField] private Vector2 _minLimit = new Vector2(-5f, -3f);
     [SerializeField] private Vector2 _maxLimit = new Vector2(5f, 3f);
+
+    private Vector3 _defaultScale;
+
+
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    private void Start()
+    {
+        _defaultScale = transform.localScale;
+        _enemy = GameObject.FindGameObjectWithTag("Enemy");
+        if (_enemy == null)
+        {
+            Debug.Log("Enemyタグのオブジェクトがありません");
+        }
+    }
+
+    private void Update()
+    {
+        if(_enemy != null)
+        {
+            ChangeLookDirection();
+        }
+    }
 
     void FixedUpdate()
     {
@@ -39,6 +79,20 @@ public class Player_S : MonoBehaviour
         //Lerp(a,b,t):始点aと終点bをt(両端の距離を1としたときの割合、範囲は0～1)で補完する。
         //SmoothDamp(a,b,c,d)a:現在の座標 b:目標の座標 c:現在の速度 d:目標に到達するまでの時間
         _target.transform.position = Vector3.SmoothDamp(_target.transform.position, mousePosition,ref _position, _followSpeed);
+    }
+
+    private void ChangeLookDirection()
+    {
+        //敵が左側にいる場合
+        if(_enemy.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector3(-_defaultScale.x, _defaultScale.y, _defaultScale.z);
+        }
+        //敵が右側にいる場合
+        else if(_enemy.transform.position.x > transform.position.x)
+        {
+            transform.localScale = _defaultScale;
+        }
     }
 
     /// <summary>
