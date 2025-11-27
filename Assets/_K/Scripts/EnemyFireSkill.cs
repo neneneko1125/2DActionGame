@@ -1,9 +1,8 @@
-using System.Collections;
 using UnityEngine;
-
-public class FireSkill : MonoBehaviour
+using System.Collections;
+public class EnemyFireSkill : MonoBehaviour
 {
-    [SerializeField] private GameObject _fire;
+    [SerializeField] private GameObject _fire; 
     [SerializeField] private float _fireSpeed = 5.0f;
     [SerializeField] private float _adjustShootPos_x = 0.5f;
 
@@ -19,16 +18,11 @@ public class FireSkill : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
     }
 
-
-    void Update()
+    public IEnumerator Shoot()
     {
-        if(_isInterval == false) StartCoroutine(Shoot());
-    }
-
-    private IEnumerator Shoot()
-    {
-        if (Input.GetMouseButtonDown(0))
+        if (_isInterval == false)
         {
+            _animInterval = Random.Range(0.1f, 0.5f);
             Fire();
             _anim.SetBool("ATK", true);
             _isInterval = true;
@@ -37,13 +31,12 @@ public class FireSkill : MonoBehaviour
             _anim.SetBool("ATK", false);
         }
     }
-
     private void Fire()
     {
         Vector2 shootPos;
         Vector2 direction;
 
-        if(_sr.flipX == false)
+        if (_sr.flipX == true)
         {
             shootPos = new Vector2(transform.position.x + _adjustShootPos_x, transform.position.y);
             direction = Vector2.right;
@@ -53,13 +46,13 @@ public class FireSkill : MonoBehaviour
             shootPos = new Vector2(transform.position.x - _adjustShootPos_x, transform.position.y);
             direction = Vector2.left;
         }
-        
+
 
         if (_fire != null)
         {
             GameObject fireObj = Instantiate(_fire, shootPos, Quaternion.identity);
 
-            
+
             if (direction == Vector2.left)
             {
                 //ñÇñ@Ç‡ç∂âEîΩì]
@@ -70,7 +63,7 @@ public class FireSkill : MonoBehaviour
                 );
             }
 
-                Rigidbody2D fireRb = fireObj.GetComponent<Rigidbody2D>();
+            Rigidbody2D fireRb = fireObj.GetComponent<Rigidbody2D>();
 
             if (fireRb != null)
             {
@@ -79,6 +72,4 @@ public class FireSkill : MonoBehaviour
         }
 
     }
-
-
 }

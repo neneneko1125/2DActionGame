@@ -20,8 +20,8 @@ public class Player_S : MonoBehaviour
     [SerializeField] private Vector2 _minLimit = new Vector2(-5f, -3f);
     [SerializeField] private Vector2 _maxLimit = new Vector2(5f, 3f);
 
-    private Vector3 _defaultScale;
-
+    // private Vector3 _defaultScale;
+    private SpriteRenderer _sr;
 
     private void Awake()
     {
@@ -38,7 +38,8 @@ public class Player_S : MonoBehaviour
 
     private void Start()
     {
-        _defaultScale = transform.localScale;
+        //_defaultScale = transform.localScale;
+        _sr = GetComponent<SpriteRenderer>();
         _enemy = GameObject.FindGameObjectWithTag("Enemy");
         if (_enemy == null)
         {
@@ -86,12 +87,14 @@ public class Player_S : MonoBehaviour
         //ìGÇ™ç∂ë§Ç…Ç¢ÇÈèÍçá
         if(_enemy.transform.position.x < transform.position.x)
         {
-            transform.localScale = new Vector3(-_defaultScale.x, _defaultScale.y, _defaultScale.z);
+            //transform.localScale = new Vector3(-_defaultScale.x, _defaultScale.y, _defaultScale.z);
+            _sr.flipX = true;
         }
         //ìGÇ™âEë§Ç…Ç¢ÇÈèÍçá
         else if(_enemy.transform.position.x > transform.position.x)
         {
-            transform.localScale = _defaultScale;
+            //transform.localScale = _defaultScale;
+            _sr.flipX = false;
         }
     }
 
