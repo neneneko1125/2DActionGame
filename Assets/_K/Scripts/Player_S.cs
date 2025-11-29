@@ -79,7 +79,7 @@ public class Player_S : MonoBehaviour
 
         //Lerp(a,b,t):始点aと終点bをt(両端の距離を1としたときの割合、範囲は0～1)で補完する。
         //SmoothDamp(a,b,c,d)a:現在の座標 b:目標の座標 c:現在の速度 d:目標に到達するまでの時間
-        _target.transform.position = Vector3.SmoothDamp(_target.transform.position, mousePosition,ref _position, _followSpeed);
+        _target.transform.position = Vector3.SmoothDamp(_target.transform.position, mousePosition, ref _position, _followSpeed);
     }
 
     private void ChangeLookDirection()

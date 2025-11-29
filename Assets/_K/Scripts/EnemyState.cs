@@ -27,6 +27,17 @@ public class EnemyState : MonoBehaviour
     [SerializeField] private float _moveSpeed = 12f;
     [SerializeField] private float _noiseStrength = 0.5f; // 揺らぎの強さ
     [SerializeField] private float _noiseSpeed = 1.5f;    // 揺らぎの変化スピード
+    [SerializeField] private float _distanceLimit = 5.0f; //プレイヤーに距離を詰められたとき回避するための変数
+
+    // 画面端判定
+    [SerializeField] private float _stageMinX = -8f;
+    [SerializeField] private float _stageMaxX = 8f;
+
+    // ダッシュ制御
+    [SerializeField] private float _dashPower = 10f;
+    [SerializeField] private float _dashCooldown = 2f;
+    private float _dashTimer = 0f;
+
 
     private float _noiseTime;
 
@@ -43,6 +54,7 @@ public class EnemyState : MonoBehaviour
 
     [Header("Ray＆回避関連")]
     [SerializeField] private float _rayDistance = 5.0f;
+    [SerializeField] private float _rayWidth = 1.0f;
     [SerializeField] private LayerMask _rayLayer;
     [SerializeField] private float _avoidSpeed = 5.0f;
     [SerializeField] private float _avoidTime = 0.5f;
@@ -95,35 +107,56 @@ public class EnemyState : MonoBehaviour
         }
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _rayDistance, _rayLayer);
+        Debug.DrawRay(transform.position, direction * _rayDistance, Color.yellow);
 
-        Debug.DrawRay(transform.position, direction * _rayDistance, Color.red);
+        RaycastHit2D hit_up = Physics2D.Raycast(transform.position + Vector3.up * _rayWidth, direction, _rayDistance, _rayLayer);
+        Debug.DrawRay(transform.position + Vector3.up * _rayWidth, direction * _rayDistance, Color.yellow);
 
-        if (hit.collider != null)
+        RaycastHit2D hit_down = Physics2D.Raycast(transform.position + Vector3.down * _rayWidth, direction, _rayDistance, _rayLayer);
+        Debug.DrawRay(transform.position + Vector3.down * _rayWidth, direction * _rayDistance, Color.yellow);
+
+
+        if (hit.collider != null || hit_up.collider != null || hit_down.collider != null)
         {
             Debug.Log("敵の回避");
             _isAvoiding = true;
-
             Vector2 avoidDir;
+            float rnd;
 
-            if(transform.position.y < hit.collider.transform.position.y)
+            if (hit.collider != null)
             {
+                rnd = Random.Range(0f, 1f);
+
+                if (rnd <= 0.5f)
+                {
+                    avoidDir = Vector2.down;
+                }
+                else
+                {
+                    avoidDir = Vector2.up;
+                }
+            }
+            else if (hit_up.collider != null)
+            {
+                //上で敵の魔法を検知したら下によける
                 avoidDir = Vector2.down;
             }
             else
             {
+                //下で敵の魔法を検知したら上によける
                 avoidDir = Vector2.up;
             }
 
-            _rb.linearVelocity = Vector2.zero;
 
+            _rb.linearVelocity = Vector2.zero;
             _rb.linearVelocity = avoidDir * _avoidSpeed;
             yield return new WaitForSeconds(_avoidTime);
-            _rb.linearVelocity = avoidDir * _avoidSpeed;
 
             _isAvoiding = false;
         }
     }
 
+   
 
     private void ATKMove()
     {
@@ -152,25 +185,40 @@ public class EnemyState : MonoBehaviour
 
     private void EscapeMove()
     {
-        // 基本方向：プレイヤーから離れる
-        Vector2 escapeDir = (transform.position - _player.position).normalized;
+        // ダッシュクールタイム更新
+        _dashTimer -= Time.fixedDeltaTime;
 
-        // 揺らぎを生成
-        _noiseTime += Time.deltaTime * _noiseSpeed;
-        float noise = Mathf.PerlinNoise(_noiseTime, 1f) * 2f - 1f;
-
-        Vector2 sway = new Vector2(-escapeDir.y, escapeDir.x) * noise * _noiseStrength;
-
-        Vector2 finalDir = (escapeDir + sway).normalized;
-
-        _rb.linearVelocity = finalDir * _moveSpeed;
-
-        // 一定距離で止まる
-        if (_distanceToPlayer >= _escapeDistance)
+        // ====== 画面端チェック ======
+        if ((transform.position.x < _stageMinX + 1f || transform.position.x > _stageMaxX - 1f) && _dashTimer <= 0f)
         {
-            _rb.linearVelocity = Vector2.zero;
+            Debug.Log("ダッシュ");
+            DashEscape();
+            return; // 通常のEscape処理は行わない
         }
+
+
+        // ====== 通常の逃げ処理 ======
+        float xDir = Mathf.Sign(transform.position.x - _player.position.x);  // プレイヤーと逆方向へ
+        Vector2 dir = new Vector2(xDir, 0);
+
+        _noiseTime += Time.fixedDeltaTime * _noiseSpeed;
+        float noise = Mathf.PerlinNoise(_noiseTime, 0f) * 2f - 1f;
+        Vector2 sway = new Vector2(0, noise * _noiseStrength);
+
+        Vector2 finalDir = (dir + sway).normalized;
+        _rb.linearVelocity = finalDir * _moveSpeed;
     }
+
+    private void DashEscape()
+    {
+        float dashDir = Mathf.Sign(transform.position.x - _player.position.x);
+        Vector2 dashForce = new Vector2(dashDir, 0) * _dashPower;
+
+        _rb.AddForce(dashForce, ForceMode2D.Impulse);
+
+        _dashTimer = _dashCooldown; // クールタイムリセット
+    }
+
 
     private void ATK()
     {
@@ -193,12 +241,14 @@ public class EnemyState : MonoBehaviour
 
     private void ChangeState()
     {
-        if (_moveCurrentState == MoveState.ATKMove && ((float)_hpManager.hp / _hpManager.maxhp) * Percentage < _stateChangeHP)
+        if (_moveCurrentState == MoveState.ATKMove && _distanceToPlayer < _distanceLimit)
         {
+            Debug.Log("Escapeモードに切り替えた");
             _moveCurrentState = MoveState.EscapeMove;
         }
-        else if (_moveCurrentState == MoveState.EscapeMove && ((float)_hpManager.hp / _hpManager.maxhp) * Percentage >= _stateChangeHP)
+        else if (_moveCurrentState == MoveState.EscapeMove && _distanceToPlayer > _distanceLimit)
         {
+            Debug.Log("ATKモードに切り替えた");
             _moveCurrentState = MoveState.ATKMove;
         }
 

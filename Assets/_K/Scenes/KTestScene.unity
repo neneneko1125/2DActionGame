@@ -281,7 +281,7 @@ Transform:
   m_GameObject: {fileID: 82525501}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.07, y: -7.55, z: 0}
+  m_LocalPosition: {x: 14.02, y: -7.55, z: 0}
   m_LocalScale: {x: 1.950424, y: 10.083418, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPManager
   _body: {fileID: 1061219951}
-  maxhp: 100
+  maxhp: 50
   hp: 0
   _invincibleTime: 1
   _blinkIntervalTime: 0.1
@@ -1591,19 +1591,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyState
   _player: {fileID: 1338923106}
-  _stateChangeHP: 20
+  _stateChangeHP: 0
   _escapeDistance: 6
   _moveSpeed: 7
-  _noiseStrength: 4
-  _noiseSpeed: 4
+  _noiseStrength: 6
+  _noiseSpeed: 2
+  _distanceLimit: 5
+  _stageMinX: -8
+  _stageMaxX: 8
+  _dashPower: 20
+  _dashCooldown: 2
   _minLimit: {x: -8.3, y: -4}
   _maxLimit: {x: 8.3, y: 4}
-  _rayDistance: 8
+  _rayDistance: 5
+  _rayWidth: 1
   _rayLayer:
     serializedVersion: 2
     m_Bits: 1024
-  _avoidSpeed: 15
-  _avoidTime: 0.25
+  _avoidSpeed: 12.5
+  _avoidTime: 0.08
 --- !u!114 &1061219960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1617,9 +1623,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFireSkill
   _fire: {fileID: 7021362768417455680, guid: e874b81a18a036b4296bd442879cf875, type: 3}
-  _fireSpeed: 25
+  _fireSpeed: 28
   _adjustShootPos_x: 1
-  _animInterval: 0.2
+  _fire2: {fileID: 7021362768417455680, guid: 3a0298f381f8db3449f67526a1dff2f7, type: 3}
+  _fireSpeed2: 28
+  _adjustShootPos2_x: 0.5
+  _animIntervalMin: 0.15
+  _animIntervalMax: 0.7
+  _animIntervalMin2: 1
+  _animIntervalMax2: 3
 --- !u!1 &1141186738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1951,9 +1963,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireSkill
   _fire: {fileID: 7021362768417455680, guid: 80fe26d0742ecf1429190ae2e02b40ae, type: 3}
-  _fireSpeed: 25
+  _fireSpeed: 28
   _adjustShootPos_x: 1
+  _fire2: {fileID: 7021362768417455680, guid: 7da8414da9e911541922a706e73a64b6, type: 3}
+  _fireSpeed2: 28
+  _adjustShootPos2_x: 1
   _animInterval: 0.15
+  _animInterval2: 1
 --- !u!114 &1338923111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,7 +1983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_S
   _target: {fileID: 1338923104}
-  _followSpeed: 0.1
+  _followSpeed: 0.05
   _position: {x: 0, y: 0, z: 0}
   _minLimit: {x: -8.3, y: -4}
   _maxLimit: {x: 8.3, y: 4}
@@ -1984,7 +2000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPManager
   _body: {fileID: 1338923104}
-  maxhp: 100
+  maxhp: 50
   hp: 0
   _invincibleTime: 1
   _blinkIntervalTime: 0.1
@@ -2724,7 +2740,7 @@ Transform:
   m_GameObject: {fileID: 1750723083}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.08, y: -7.63, z: 0}
+  m_LocalPosition: {x: -12.61, y: -7.63, z: 0}
   m_LocalScale: {x: 1.950424, y: 10.083418, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

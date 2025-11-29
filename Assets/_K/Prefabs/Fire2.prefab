@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4565790735692293835}
   - component: {fileID: 7992362516091304140}
   m_Layer: 10
-  m_Name: Fire
+  m_Name: Fire2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 7021362768417455680}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.8057, y: -1.2843, z: 0}
-  m_LocalScale: {x: 0.47392797, y: 0.5285801, z: 1}
+  m_LocalPosition: {x: -3.0593, y: 0.1568, z: 0}
+  m_LocalScale: {x: 1.9659337, y: 1.9696599, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4afd766090cd0214eadd289313262011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fire
-  _atk: 5
+  _atk: 10
 --- !u!212 &4019722213950446153
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -141,8 +141,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.8351271, y: 0.06975948}
-  m_Size: {x: 1.4417732, y: 0.37228185}
+  m_Offset: {x: 0.9390592, y: 0.05380997}
+  m_Size: {x: 1.6496419, y: 0.7391255}
   m_Direction: 1
 --- !u!50 &4565790735692293835
 Rigidbody2D:
