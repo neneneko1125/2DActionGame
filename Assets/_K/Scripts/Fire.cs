@@ -1,6 +1,6 @@
 using UnityEngine;
-
-public class Fire : MonoBehaviour
+/*
+public class Fire_ : MonoBehaviour
 {
     [SerializeField] private int _atk = 5;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,3 +39,5 @@ public class Fire : MonoBehaviour
         }
     }
 }
+
+*/

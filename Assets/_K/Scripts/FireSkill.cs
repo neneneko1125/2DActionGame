@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class FireSkill : MonoBehaviour
+public class FireSkill_ : MonoBehaviour
 {
     [SerializeField] private GameObject _fire;
     [SerializeField] private float _fireSpeed = 5.0f;

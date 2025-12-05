@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class HPManager : MonoBehaviour
+public class HPManagerTest : MonoBehaviour
 {
     [SerializeField] private GameObject _body;
     [SerializeField] public int maxhp = 100;
