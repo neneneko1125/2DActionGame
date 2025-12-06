@@ -50,6 +50,9 @@ TagManager:
   - name: Stage
     uniqueID: 1402065351
     locked: 0
+  - name: Enemy
+    uniqueID: 397600459
+    locked: 0
   - name: Player
     uniqueID: 2472350761
     locked: 0

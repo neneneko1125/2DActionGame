@@ -4,16 +4,20 @@ public class EnemyMoveState : MonoBehaviour
 {
     [SerializeField] private float _detectionRange = 5.0f;
     [SerializeField] private float _stopDistance = 1.0f;
+
     private Transform _player;
 
     [SerializeField] private float _chaseSpeed;
     [SerializeField] private float _patrolSpeed;
 
     [SerializeField] private GameObject _enemySprite;
-    private float _direction = 1.0f;
+    private Vector3 _defaultScale;
+   
 
     private Rigidbody2D _rb;
-    private EnemyATK _enemyATK;
+    private EnemyBaseATK _enemyATK;
+
+    [SerializeField] private GameObject _wallChecker;
 
     private enum State { Patrol, Chase }
     private State _current = State.Patrol;
@@ -21,8 +25,14 @@ public class EnemyMoveState : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _enemyATK = GetComponent<EnemyATK>();
+        _enemyATK = GetComponent<EnemyBaseATK>();
         _rb = GetComponent<Rigidbody2D>();
+
+        _defaultScale = _enemySprite.transform.localScale;
+
+        //敵のスピードを乱数調整する
+        _chaseSpeed = Random.Range(_chaseSpeed * 0.75f, _chaseSpeed * 1.25f);
+        _patrolSpeed = Random.Range(_patrolSpeed * 0.9f, _patrolSpeed * 1.1f);
     }
 
     private void Update()
@@ -40,6 +50,9 @@ public class EnemyMoveState : MonoBehaviour
         }
         else if (_current == State.Chase && xDistance > _detectionRange)
         {
+            //一瞬アクティブを切り替えて、TriggerEnterで反応するように
+            _wallChecker.SetActive(false);
+            _wallChecker.SetActive(true);
             _current = State.Patrol;
         }
 
@@ -60,7 +73,8 @@ public class EnemyMoveState : MonoBehaviour
         float xDistance = Mathf.Abs(_player.position.x - transform.position.x);
         float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
 
-        _enemySprite.transform.localScale = new Vector3(-xDirection, 1, 1);
+        if(!_enemyATK.isATK)
+        _enemySprite.transform.localScale = new Vector3(-xDirection * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
         if (_enemyATK.isATK || xDistance < _stopDistance)
         {
@@ -76,22 +90,29 @@ public class EnemyMoveState : MonoBehaviour
 
 
     void Patrol()
-    { 
+    {  
+        float direction;
+
         //反転してないときは
         if (_enemySprite.transform.localScale.x > 0)
         {
-            _direction = -1.0f;
+            direction = -1.0f;
         }
         //反転してるときは
         else
         {
-            _direction = 1.0f;
+            direction = 1.0f;
         }
 
-        _rb.linearVelocityX = _direction * _patrolSpeed;
-
-       
-
+        if (_enemyATK.isATK)
+        {
+            _rb.linearVelocityX = 0;
+        }
+        else
+        {
+            _rb.linearVelocityX = direction * _patrolSpeed;
+        }
+        
     }
 
 

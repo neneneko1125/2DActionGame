@@ -34,10 +34,10 @@ public class PlayerATK : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(ATK());
+        ATK();
     }
 
-    private IEnumerator ATK()
+    private void ATK()
     {
         if (_atkCollider.enabled == false && _atkCollider_Dash.enabled == false && _atkCollider_Down.enabled == false && isGuard == false)
         {
@@ -57,12 +57,7 @@ public class PlayerATK : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("çUåÇÇµÇΩ");
-                    _anim.SetBool("ATK", true);
-                    _atkCollider.enabled = true;
-                    yield return new WaitForSeconds(_animTime);
-                    _atkCollider.enabled = false;
-                    _anim.SetBool("ATK", false);
+                    StartCoroutine(NomalATK());
                 }
             }
 
@@ -81,9 +76,20 @@ public class PlayerATK : MonoBehaviour
 
     }
 
+    private IEnumerator NomalATK()
+    {
+        SEManager.Instance.SEATK();
+        _anim.SetBool("ATK", true);
+        _atkCollider.enabled = true;
+        yield return new WaitForSeconds(_animTime);
+        _atkCollider.enabled = false;
+        _anim.SetBool("ATK", false);
+    }
+
     private IEnumerator DashATK(Vector2 dir)
     {
-        Debug.Log("çUåÇÇµÇΩDash");
+        SEManager.Instance.SEDashATK();
+
         isDashing = true;
         _anim.SetBool("DashATK", true);
         _atkCollider_Dash.enabled = true;
@@ -110,7 +116,8 @@ public class PlayerATK : MonoBehaviour
 
     private IEnumerator DownATK()
     {
-        Debug.Log("çUåÇÇµÇΩDown");
+        SEManager.Instance.SEDownATK();
+
         isDowning = true;
         _anim.SetBool("DownATK", true);
         _atkCollider_Down.enabled = true;

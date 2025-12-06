@@ -40,7 +40,7 @@ public class PlayerHP : MonoBehaviour
         }
 
         hp -= damage;
-        SEManager.Instance.DamageSE();
+        SEManager.Instance.SEDamage();
 
         if (hp <= 0)
         {
