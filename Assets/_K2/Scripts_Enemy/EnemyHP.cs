@@ -7,6 +7,8 @@ public class EnemyHP : MonoBehaviour
     public int maxhp = 100;
     public int hp;
 
+    [SerializeField] private int _exp;
+
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
     [SerializeField] private float _blinkIntervalTime = 0.1f;
@@ -14,6 +16,10 @@ public class EnemyHP : MonoBehaviour
     [SerializeField] private Image _hpBarImage;
 
     [SerializeField] private SpriteRenderer _sr;
+
+    public System.Action OnDead;
+
+
 
     private void Awake()
     {
@@ -43,6 +49,8 @@ public class EnemyHP : MonoBehaviour
 
         if (hp <= 0)
         {
+            OnDead?.Invoke();
+            PlayerLvEXP.Instance.AddExp(_exp);
             Destroy(gameObject);
         }
 

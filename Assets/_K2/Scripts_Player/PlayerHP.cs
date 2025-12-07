@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private float _blinkIntervalTime = 0.1f;
 
     [SerializeField] private Image _hpBarImage;
+    [SerializeField] private TextMeshProUGUI hpText; 
 
     [SerializeField] private SpriteRenderer _sr;
     private PlayerATK _playerATK;
@@ -24,6 +26,9 @@ public class PlayerHP : MonoBehaviour
     void Start()
     {
         hp = maxhp;
+
+        //ç≈èâÇ…TextÇ∆BarÇèâä˙âª
+        UpdateHPUI();
     }
 
 
@@ -48,7 +53,7 @@ public class PlayerHP : MonoBehaviour
         }
 
         StartCoroutine(BlinkInvincible());
-        UpdateHPBar();
+        UpdateHPUI();
     }
 
     /// <summary>
@@ -74,11 +79,16 @@ public class PlayerHP : MonoBehaviour
     }
 
 
-    private void UpdateHPBar()
+    private void UpdateHPUI()
     {
         if (_hpBarImage != null)
         {
             _hpBarImage.fillAmount = (float)hp / maxhp;
+        }
+
+        if (hpText != null)
+        {
+            hpText.text = hp.ToString();
         }
     }
 }
