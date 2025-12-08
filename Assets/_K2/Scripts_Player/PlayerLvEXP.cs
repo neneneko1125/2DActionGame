@@ -10,9 +10,13 @@ public class PlayerLvEXP : MonoBehaviour
     private int _playerEXP = 0;   //プレイヤーの経験値　レベルアップの度にリセット
     [SerializeField] private Image expBarImage; //経験値のバー
 
+    [SerializeField] private int _plusHP = 5;
+
     [Header("プレイヤーLvのm乗*n")]
     [SerializeField] private float exp_n = 5f;
     [SerializeField] private float exp_m = 1.5f;
+
+    private PlayerHP _playerHP;
 
     public static PlayerLvEXP Instance { get; private set; }
 
@@ -20,16 +24,19 @@ public class PlayerLvEXP : MonoBehaviour
     {
         if (Instance == null)
         {
+            Debug.Log("Instance = This");
             Instance = this;
         }
         else
         {
+            Debug.Log("PlayerDestroy");
             Destroy(gameObject);
         }
     }
 
     void Start()
     {
+        _playerHP = GetComponent<PlayerHP>();
         UpdateLevelUI();
     }
 
@@ -61,12 +68,14 @@ public class PlayerLvEXP : MonoBehaviour
             playerLv++;    //レベルアップ
           //  SaveLevels();   //レベルを保存
           //  SEManager.Instance.LvUPSE();    //SEを鳴らす
-          //  Player_HP.Instance.LvUpHP(plusHP, 1000);  //最大HPを更新して1000回復するメソッドへ
+            _playerHP.LvUpHP(_plusHP, 1000);  //最大HPを更新して1000回復するメソッドへ
             UpdateLevelUI(); //経験値バーの更新メソッドへ
           
         }
 
     }
+
+
 
     /// <summary>
     /// 次のレベルに必要な経験値を返す

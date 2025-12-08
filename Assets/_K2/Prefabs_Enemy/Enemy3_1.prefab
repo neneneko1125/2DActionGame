@@ -830,9 +830,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4aac5c6091af90449c4b7d9ecb028f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
-  maxhp: 10
+  maxhp: 20
   hp: 0
-  _exp: 15
+  _exp: 5
   _invincibleTime: 0.25
   _blinkIntervalTime: 0.1
   _hpBarImage: {fileID: 6835185222745963447}

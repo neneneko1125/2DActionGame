@@ -4,7 +4,6 @@ using System.Collections;
 public class FriendMoveState : MonoBehaviour
 {
     [Header("Playerを探す")]
-    [SerializeField] private float _detectionRange = 5.0f;
     [SerializeField] private float _stopDistance = 1.0f;
 
     [Header("これ以上離れたらプレイヤーにワープ")]
@@ -85,38 +84,39 @@ public class FriendMoveState : MonoBehaviour
 
     void Chase()
     {
-        float xDistance = Mathf.Abs(_enemy.position.x - transform.position.x);
-        float xDirection = Mathf.Sign(_enemy.position.x - transform.position.x);
+        float xDistanceToPlayer = Mathf.Abs(_player.position.x - transform.position.x);
+        float xDirectionToEnemy = Mathf.Sign(_enemy.position.x - transform.position.x);
 
         if (!_enemyATK.isATK)
-            _friendSprite.transform.localScale = new Vector3(-xDirection * _defaultScale.x, _defaultScale.y, _defaultScale.z);
+            _friendSprite.transform.localScale = new Vector3(-xDirectionToEnemy * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.isATK || xDistance < _stopDistance)
+        if (_enemyATK.isATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
         else
         {
-            _rb.linearVelocityX = xDirection * _chaseSpeed;
+            _rb.linearVelocityX = xDirectionToEnemy * _chaseSpeed;
         }
     }
 
 
     void Follow()
     {
-        float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
+        float xDistanceToPlayer = Mathf.Abs(_player.position.x - transform.position.x);
+        float xDirectionToPlayer = Mathf.Sign(_player.position.x - transform.position.x);
 
 
         if (!_enemyATK.isATK)
-            _friendSprite.transform.localScale = new Vector3(-xDirection * _defaultScale.x, _defaultScale.y, _defaultScale.z);
+            _friendSprite.transform.localScale = new Vector3(-xDirectionToPlayer * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.isATK)
+        if (_enemyATK.isATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
         else
         {
-            _rb.linearVelocityX = xDirection * _followSpeed;
+            _rb.linearVelocityX = xDirectionToPlayer * _followSpeed;
         }
 
     }

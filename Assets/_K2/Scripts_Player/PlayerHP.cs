@@ -18,10 +18,12 @@ public class PlayerHP : MonoBehaviour
     [SerializeField] private SpriteRenderer _sr;
     private PlayerATK _playerATK;
 
+
     private void Awake()
     {
-       _playerATK = GetComponent<PlayerATK>();
+        _playerATK = GetComponent<PlayerATK>();
     }
+
 
     void Start()
     {
@@ -57,6 +59,30 @@ public class PlayerHP : MonoBehaviour
     }
 
     /// <summary>
+    /// レベルアップしたときに呼ばれる
+    /// </summary>
+    /// <param name="plusHP"></param>
+    /// <param name="healAmount"></param>
+    public void LvUpHP(int plusHP, int healAmount)
+    {
+        maxhp += plusHP;   //最大HPの更新
+        Heal(healAmount);      //回復メソッド
+    }
+
+    /// <summary>
+    /// 回復　レベルアップのときにも呼ばれる
+    /// </summary>
+    /// <param name="healAmount"></param>
+    private void Heal(int healAmount)
+    {
+        hp += healAmount;    //現在のHPに回復量を加算
+        hp = Mathf.Clamp(hp, 0, maxhp);  //最大HPを超えないように丸め込む
+
+        UpdateHPUI();
+    }
+
+
+    /// <summary>
     /// 無敵になったときの点滅
     /// </summary>
     /// <returns></returns>
@@ -77,6 +103,7 @@ public class PlayerHP : MonoBehaviour
 
         _isInvincible = false;
     }
+
 
 
     private void UpdateHPUI()
