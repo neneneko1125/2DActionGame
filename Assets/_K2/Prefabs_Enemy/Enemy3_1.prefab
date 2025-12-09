@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165bfa429c0a6fc4492b344bb9be0e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDirection
-  _enemy: {fileID: 4697126967864603662}
+  _enemySprite: {fileID: 4697126967864603662}
 --- !u!212 &7248094755379044288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f38e8f10b00643438eb902b77188005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyATKObject
-  _atk: 1
+  _atk: 2
 --- !u!212 &6053363045588767970
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1026,7 +1026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee1ec28e9789444dbb9d5c65df2b3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCliffChecker
-  _enemy: {fileID: 4697126967864603662}
+  _enemySprite: {fileID: 4697126967864603662}
 --- !u!212 &5960912619245475470
 SpriteRenderer:
   m_ObjectHideFlags: 0

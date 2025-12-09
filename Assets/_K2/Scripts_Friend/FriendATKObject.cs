@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class FriendATKObject : MonoBehaviour
 {
-    [SerializeField] private int _atk = 1;
+    [SerializeField] private int _atkDefault = 1;
 
+    private int _atk = 0;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -14,7 +15,7 @@ public class FriendATKObject : MonoBehaviour
 
             if (enemyHP != null)
             {
-
+                _atk = _atkDefault;
                 SEManager.Instance.SEDamage();
                 StartCoroutine(enemyHP.ReduceHP(_atk));
             }

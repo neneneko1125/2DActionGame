@@ -1,74 +1,68 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
-public class EnemyHP : MonoBehaviour
+public class FriendHP : MonoBehaviour
 {
-    //最大HP
-    public int MaxHP = 100;
-
-    //現在のHP
+    public int MaxHP = 30;
     public int HP;
 
-    //経験値
-    [SerializeField] private int _exp;
-
-    //無敵中ならtrue
     private bool _isInvincible = false;
-
-    //被弾した後の無敵の時間
     [SerializeField] private float _invincibleTime = 1.0f;
-
-    //一回の点滅の時間
     [SerializeField] private float _blinkIntervalTime = 0.1f;
 
     [SerializeField] private Image _hpBarImage;
+    [SerializeField] private TextMeshProUGUI _hpText;
 
     [SerializeField] private SpriteRenderer _sr;
-
-    //死亡時にプレイヤーの味方に知らせる
-    public System.Action OnDead;
-
+   
 
     void Start()
     {
-        //最初に現在のHPを最大HPにする
         HP = MaxHP;
+
+        //最初にTextとBarを初期化
+        UpdateHPUI();
     }
 
-    /// <summary>
-    /// HPを減らす
-    /// </summary>
-    /// <param name="damage"></param>
-    /// <returns></returns>
+
+    void Update()
+    {
+
+    }
+
     public IEnumerator ReduceHP(int damage)
     {
-        //無敵中なら
         if (_isInvincible)
         {
-            //このメソッドをぬける
             yield break;
         }
 
         HP -= damage;
+        SEManager.Instance.SEDamage();
 
-        //SEManager.Instance.SEDamage();
-
-        //HPが0以下になったら
         if (HP <= 0)
         {
-            //プレイヤーの味方に知らせる
-            OnDead?.Invoke();
-
-            //プレイヤーの経験値を追加する
-            PlayerLvEXP.Instance.AddExp(_exp);
-
             Destroy(gameObject);
         }
 
         StartCoroutine(BlinkInvincible());
-        UpdateHPBar();
+        UpdateHPUI();
     }
+
+    /// <summary>
+    /// 回復　レベルアップのときにも呼ばれる
+    /// </summary>
+    /// <param name="healAmount"></param>
+    private void Heal(int healAmount)
+    {
+        HP += healAmount;    //現在のHPに回復量を加算
+        HP = Mathf.Clamp(HP, 0, MaxHP);  //最大HPを超えないように丸め込む
+
+        UpdateHPUI();
+    }
+
 
     /// <summary>
     /// 無敵になったときの点滅
@@ -82,24 +76,28 @@ public class EnemyHP : MonoBehaviour
 
         while (timer < _invincibleTime)
         {
-            //透明不透明の切り替え
             _sr.enabled = !_sr.enabled;
             yield return new WaitForSeconds(_blinkIntervalTime);
             timer += _blinkIntervalTime;
         }
 
-        //最後は必ず不透明になるようにする
         _sr.enabled = true;
 
         _isInvincible = false;
     }
 
 
-    private void UpdateHPBar()
+
+    private void UpdateHPUI()
     {
         if (_hpBarImage != null)
         {
             _hpBarImage.fillAmount = (float)HP / MaxHP;
+        }
+
+        if (_hpText != null)
+        {
+            _hpText.text = HP.ToString();
         }
     }
 }

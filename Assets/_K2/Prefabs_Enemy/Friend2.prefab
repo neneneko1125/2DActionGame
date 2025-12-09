@@ -743,7 +743,7 @@ SpriteRenderer:
   m_SortingLayerID: 397600459
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 640592c1097abbe409e354c22129a17d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3734f235b02c5e246ad0c8d8655f686b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -764,7 +764,7 @@ Animator:
   m_GameObject: {fileID: 4697126967864603662}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: acde985eb90810f468e8e5940a6f090c, type: 2}
+  m_Controller: {fileID: 9100000, guid: a9cb7a7f4f241504bb8cc7a375c9571b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -861,13 +861,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8524183665246816864}
   - component: {fileID: 5414503371830261960}
-  - component: {fileID: -8151931423299980405}
+  - component: {fileID: 1542084662351645795}
   - component: {fileID: 7877820013955645365}
   - component: {fileID: 6148947678429565797}
   - component: {fileID: 1178416473938827992}
   - component: {fileID: 1688607650252645514}
   m_Layer: 12
-  m_Name: Friend1
+  m_Name: Friend2
   m_TagString: Friend
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,11 +909,11 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 256
-  _chaseSpeed: 5
-  _followSpeed: 4
+  _chaseSpeed: 7
+  _followSpeed: 3
   _friendSprite: {fileID: 4697126967864603662}
   _wallChecker: {fileID: 658062285636985798}
---- !u!114 &-8151931423299980405
+--- !u!114 &1542084662351645795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -922,19 +922,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 5420053079692961230}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc5779b6dca3e4049a1190c21dbd17e8, type: 3}
+  m_Script: {fileID: 11500000, guid: e2e471bd3ac27e049bf912e344a27d15, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FriendBaseATK
-  _atkIntervalTime: 1
-  _atkTime: 0.1
-  _animTime: 0.3
+  m_EditorClassIdentifier: Assembly-CSharp::Friend2ATK
+  _atkIntervalTime: 1.75
+  _atkTime: 0.4
+  _animTime: 0.4
   _atkTimebefore: 0.5
-  attackRange: 1.5
+  attackRange: 3
   _atkCollider: {fileID: 4449923160697192680}
   _anim: {fileID: 2687111270139399686}
   _atkSign: {fileID: 81978418772607462}
   IsATK: 0
   Enemy: {fileID: 0}
+  _dashSpeed: 13
+  _friendSprite: {fileID: 4697126967864603662}
 --- !u!114 &7877820013955645365
 MonoBehaviour:
   m_ObjectHideFlags: 0

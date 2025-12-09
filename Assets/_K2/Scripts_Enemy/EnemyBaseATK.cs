@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 public class EnemyBaseATK : MonoBehaviour
 {
     [SerializeField, Header("攻撃間隔時間")] protected float _atkIntervalTime = 1.0f; 
@@ -25,10 +27,22 @@ public class EnemyBaseATK : MonoBehaviour
     public bool IsATK = false;
 
     protected Transform _player;
+    protected List<Transform> _targets = new List<Transform>();
 
     protected virtual void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        //プレイヤーをリストに追加
+        _targets.Add(_player);
+
+        //Friendタグのオブジェクトをみんな集める
+        foreach (var f in GameObject.FindGameObjectsWithTag("Friend"))
+        {
+            //_targetリストに加える
+            _targets.Add(f.transform);
+        }
+
         _atkCollider.enabled = false;
         StartCoroutine(ATKLoop()); // 攻撃ループを開始
     }
@@ -37,10 +51,14 @@ public class EnemyBaseATK : MonoBehaviour
     {
         while (true)
         {
-            //プレイヤーと自身の距離を計算
-            float distance = Vector2.Distance(transform.position, _player.position);
+            Transform target = GetNearestTarget();
 
-            //もしプレイヤーとの距離が一定より離れていれば
+            if (target == null) yield return null;
+
+            float distance = Vector2.Distance(transform.position, target.position);
+
+
+            //もしターゲットとの距離が一定より離れていれば
             if (distance > attackRange)
             {
                 //攻撃せずにループ継続
@@ -59,13 +77,18 @@ public class EnemyBaseATK : MonoBehaviour
                 //このメソッドが一周するまで待機
                 yield return StartCoroutine(AttackRoutine());
 
-                //
+                //攻撃間隔分待機
                 yield return new WaitForSeconds(_atkIntervalTime);
+
                 _atkInterval = false;
             }
         }
     }
 
+    /// <summary>
+    /// virtual:このメソッドは子クラスでoverrideすることで上書きが可能
+    /// </summary>
+    /// <returns></returns>
     protected virtual IEnumerator AttackRoutine()
     {
         //攻撃前のサイン
@@ -95,4 +118,26 @@ public class EnemyBaseATK : MonoBehaviour
         //アニメーションが終わってはじめて攻撃処理を終了とする
         IsATK = false;
     }
+
+    private Transform GetNearestTarget()
+    {
+        Transform nearest = null;
+        float minDist = Mathf.Infinity;
+        Vector2 pos = transform.position;
+
+        foreach (var t in _targets)
+        {
+            if (t == null) continue; // 死んだ場合
+
+            float dist = Vector2.Distance(pos, t.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = t;
+            }
+        }
+
+        return nearest;
+    }
+
 }

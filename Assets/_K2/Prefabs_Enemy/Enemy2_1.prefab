@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165bfa429c0a6fc4492b344bb9be0e6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDirection
-  _enemy: {fileID: 4697126967864603662}
+  _enemySprite: {fileID: 4697126967864603662}
 --- !u!212 &7248094755379044288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -859,7 +859,7 @@ MonoBehaviour:
   _atkSign: {fileID: 81978418772607462}
   IsATK: 0
   _dashSpeed: 10
-  _enemy: {fileID: 4697126967864603662}
+  _enemySprite: {fileID: 4697126967864603662}
 --- !u!70 &6148947678429565797
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1028,7 +1028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee1ec28e9789444dbb9d5c65df2b3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyCliffChecker
-  _enemy: {fileID: 4697126967864603662}
+  _enemySprite: {fileID: 4697126967864603662}
 --- !u!212 &5960912619245475470
 SpriteRenderer:
   m_ObjectHideFlags: 0

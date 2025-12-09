@@ -33,11 +33,11 @@ public class EnemySpawner : MonoBehaviour
             if (!(rnd < _rareEnemyProbability))
             {
                 //スポナー削除
-                Destroy(gameObject);    
+                Destroy(gameObject);
             }
         }
 
-        
+
         if (!_isInterval && _spawnCount < _spawnLimit && other.CompareTag("MainCamera"))
         {
             //敵がNULLならば(敵が重複することはない)
@@ -50,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator Interval()
+    private IEnumerator Interval()
     {
         _isInterval = true;
         yield return new WaitForSeconds(_spawnIntervalTime);

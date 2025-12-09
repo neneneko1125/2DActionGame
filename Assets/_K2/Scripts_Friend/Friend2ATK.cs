@@ -1,35 +1,35 @@
 using UnityEngine;
 using System.Collections;
-public class Enemy2ATK : EnemyBaseATK
+public class Friend2ATK : FriendBaseATK
 {
     [SerializeField] private float _dashSpeed = 5f;
-    [SerializeField] private GameObject _enemySprite;
+    [SerializeField] private GameObject _friendSprite;
 
     private Rigidbody2D _rb;
 
     protected override void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        base.Start(); // Base ã® Start ã‚’å‘¼ã¶
+        base.Start(); // Base ‚Ì Start ‚ğŒÄ‚Ô
     }
 
     /// <summary>
-    /// ãƒ€ãƒƒã‚·ãƒ¥æ”»æ’ƒ
-    /// è¦ªã‚¯ãƒ©ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+    /// ƒ_ƒbƒVƒ…UŒ‚
+    /// eƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚ğƒI[ƒo[ƒ‰ƒCƒh
     /// </summary>
     /// <returns></returns>
     protected override IEnumerator AttackRoutine()
     {
-        //æ”»æ’ƒå‰ã®ã‚µã‚¤ãƒ³
+        //UŒ‚‘O‚ÌƒTƒCƒ“
         _atkSign.SetActive(true);
         yield return new WaitForSeconds(_atkTimebefore);
         _atkSign.SetActive(false);
 
-        //è¦ªã‚¯ãƒ©ã‚¹ã«ã‚ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã—ã¦ã„ã‚‹
+        //eƒNƒ‰ƒX‚É‚ ‚éƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µ‚Ä‚¢‚é
         StartCoroutine(ATKAnimation());
 
-        // ãƒ€ãƒƒã‚·ãƒ¥æ–¹å‘ã‚’æ±ºã‚ã‚‹
-        Vector2 dashDir = _enemySprite.transform.localScale.x < 0 ? Vector2.right : Vector2.left;
+        // ƒ_ƒbƒVƒ…•ûŒü‚ğŒˆ‚ß‚é
+        Vector2 dashDir = _friendSprite.transform.localScale.x < 0 ? Vector2.right : Vector2.left;
 
         _atkCollider.enabled = true;
 
@@ -43,7 +43,7 @@ public class Enemy2ATK : EnemyBaseATK
 
         _atkCollider.enabled = false;
 
-        // ãƒ€ãƒƒã‚·ãƒ¥çµ‚äº†å¾Œã¯é€Ÿåº¦ã‚’ãƒªã‚»ãƒƒãƒˆ
+        // ƒ_ƒbƒVƒ…I—¹Œã‚Í‘¬“x‚ğƒŠƒZƒbƒg
         _rb.linearVelocityX = 0;
     }
 }
