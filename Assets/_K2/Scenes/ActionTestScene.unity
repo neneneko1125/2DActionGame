@@ -369,7 +369,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &26935270
@@ -603,7 +602,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &111365574
@@ -700,7 +698,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &119141764
@@ -1026,7 +1023,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &160552512
@@ -1123,7 +1119,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &185660776
@@ -1174,7 +1169,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!61 &185660779
@@ -1756,7 +1750,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &293602467
@@ -1928,7 +1921,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &306636208
@@ -2919,7 +2911,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &527429225
@@ -3243,7 +3234,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &607714169
@@ -3340,7 +3330,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &626995393
@@ -4850,7 +4839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
   _target: {fileID: 917947101}
-  smoothTime: 0
+  _smoothTime: 0.2
   _minX: 0
   _maxX: 159.2
   _minY: 0
@@ -5186,15 +5175,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerATK
   _dashSpeed: 15
   _dashMinSpeed: 2
-  isDashing: 0
+  IsDashing: 0
   _downSpeed: 5
-  isDowning: 0
+  IsDowning: 0
   _animTime: 0.2
   _animTime_Down: 0.5
   _atkCollider: {fileID: 565988397}
   _atkCollider_Dash: {fileID: 1332098498}
   _atkCollider_Down: {fileID: 209840004}
-  isGuard: 0
+  IsGuard: 0
 --- !u!114 &917947107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5207,12 +5196,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0f25c1620f3729469fa791929e4d57d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HPManager
-  maxhp: 30
-  hp: 0
+  MaxHP: 30
+  HP: 0
   _invincibleTime: 1
   _blinkIntervalTime: 0.1
   _hpBarImage: {fileID: 1880936585}
-  hpText: {fileID: 237300786}
+  _hpText: {fileID: 237300786}
   _sr: {fileID: 917947100}
 --- !u!114 &917947108
 MonoBehaviour:
@@ -5226,9 +5215,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f65cda3a811dc46a71ff319c80724f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLvEXP
-  playerLv: 1
+  PlayerLv: 1
   levelText: {fileID: 2064575709}
   expBarImage: {fileID: 425251722}
+  _plusHP: 5
   exp_n: 5
   exp_m: 1.5
 --- !u!1 &932053870
@@ -5325,7 +5315,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &991625178
@@ -5497,7 +5486,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1037231424
@@ -5669,7 +5657,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1074594426
@@ -6303,7 +6290,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1135643899
@@ -6400,7 +6386,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1161282217
@@ -6497,7 +6482,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1175268661
@@ -6798,7 +6782,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1199545351
@@ -6895,7 +6878,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1210522421
@@ -7142,7 +7124,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1231032379
@@ -7194,14 +7175,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33421cddf1defb94284f71a003bc36b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SEManager
-  source_damage: {fileID: 1327116208}
-  clip_damage: {fileID: 8300000, guid: 0fd8603e02b09234690afa2b4209907c, type: 3}
-  source_ATK: {fileID: 650826898}
-  clip_ATK: {fileID: 8300000, guid: 45d3339eb6612ee45a8f6c29a3b9bfbf, type: 3}
-  source_DashATK: {fileID: 701067980}
-  clip_DashATK: {fileID: 8300000, guid: 72849ad4e5135b347852e278ba33a43b, type: 3}
-  source_DownATK: {fileID: 1920342380}
-  clip_DownATK: {fileID: 8300000, guid: 78d192e1ed1d2ad46aacd2fe9a88fcce, type: 3}
+  _source_damage: {fileID: 1327116208}
+  _clip_damage: {fileID: 8300000, guid: 0fd8603e02b09234690afa2b4209907c, type: 3}
+  _source_ATK: {fileID: 650826898}
+  _clip_ATK: {fileID: 8300000, guid: 78d192e1ed1d2ad46aacd2fe9a88fcce, type: 3}
+  _source_DashATK: {fileID: 701067980}
+  _clip_DashATK: {fileID: 8300000, guid: 72849ad4e5135b347852e278ba33a43b, type: 3}
+  _source_DownATK: {fileID: 1920342380}
+  _clip_DownATK: {fileID: 8300000, guid: e12edd446bf4c2a4a9bff5aa47429fe9, type: 3}
 --- !u!1 &1267177738
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,7 +7319,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1297317031
@@ -7791,7 +7771,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1346994616
@@ -8038,7 +8017,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1373528588
@@ -8135,7 +8113,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1382134115
@@ -8311,7 +8288,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1413865992
@@ -8770,7 +8746,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1458622151
@@ -8988,7 +8963,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1571778407
@@ -9401,7 +9375,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1649711403
@@ -9635,7 +9608,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1684521606
@@ -9807,7 +9779,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1730671456
@@ -10185,7 +10156,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 96dbdfb3c19b55f479d55698de2a7107, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1846139429
@@ -10324,7 +10294,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1875594288
@@ -20941,7 +20910,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: 7c8b1fc941dbb4245bebdb07ebc9dd03, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &1948883733
@@ -21601,7 +21569,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 5420053079692961230, guid: ce42bbfbbd3bb164ca7433a21adf2784, type: 3}
   _spawnLimit: 10
   _spawnIntervalTime: 30
-  _isInterval: 0
   _rareEnemy: 0
   _rareEnemyProbability: 30
 --- !u!1 &2064575707

@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
         EnemyMove();
 
         //ƒWƒƒƒ“ƒv
-        if (_jumpInterval == false)
+        if (!_jumpInterval)
         {
             StartCoroutine(EnemyJump());
         }
@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
             _direction = 1.0f;
         }
 
-        if (_enemyATK.isATK)
+        if (_enemyATK.IsATK)
         {
             _rb.linearVelocityX = 0;
         }

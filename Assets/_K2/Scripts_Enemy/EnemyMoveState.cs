@@ -73,10 +73,10 @@ public class EnemyMoveState : MonoBehaviour
         float xDistance = Mathf.Abs(_player.position.x - transform.position.x);
         float xDirection = Mathf.Sign(_player.position.x - transform.position.x);
 
-        if(!_enemyATK.isATK)
+        if(!_enemyATK.IsATK)
         _enemySprite.transform.localScale = new Vector3(-xDirection * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.isATK || xDistance < _stopDistance)
+        if (_enemyATK.IsATK || xDistance < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
@@ -104,7 +104,7 @@ public class EnemyMoveState : MonoBehaviour
             direction = 1.0f;
         }
 
-        if (_enemyATK.isATK)
+        if (_enemyATK.IsATK)
         {
             _rb.linearVelocityX = 0;
         }

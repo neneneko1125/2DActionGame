@@ -10,7 +10,7 @@ public class FriendATKObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemyHP enemyHP = collision.gameObject.GetComponent<EnemyHP>();
+            EnemyHP enemyHP = collision.GetComponent<EnemyHP>();
 
             if (enemyHP != null)
             {

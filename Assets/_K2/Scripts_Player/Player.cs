@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if(_playerATK.isDashing == false && _playerATK.isDowning == false)
+        if(!_playerATK.IsDashing && !_playerATK.IsDowning)
         {
             Walk();
             Jump();
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     {
         _direction = Input.GetAxisRaw("Horizontal");
 
-        if (_playerATK.isGuard)
+        if (_playerATK.IsGuard)
         {
             _rb.linearVelocityX = 0;
         }
@@ -78,7 +78,7 @@ public class Player : MonoBehaviour
 
         if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && _isGrounded)
         {
-            if (_playerATK.isGuard)
+            if (_playerATK.IsGuard)
             {
                 return;
             }

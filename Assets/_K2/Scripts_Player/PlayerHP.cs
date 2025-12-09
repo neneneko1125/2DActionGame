@@ -5,15 +5,15 @@ using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
-    public int maxhp = 100;
-    public int hp;
+    public int MaxHP = 100;
+    public int HP;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
     [SerializeField] private float _blinkIntervalTime = 0.1f;
 
     [SerializeField] private Image _hpBarImage;
-    [SerializeField] private TextMeshProUGUI hpText; 
+    [SerializeField] private TextMeshProUGUI _hpText; 
 
     [SerializeField] private SpriteRenderer _sr;
     private PlayerATK _playerATK;
@@ -27,7 +27,7 @@ public class PlayerHP : MonoBehaviour
 
     void Start()
     {
-        hp = maxhp;
+        HP = MaxHP;
 
         //最初にTextとBarを初期化
         UpdateHPUI();
@@ -41,15 +41,15 @@ public class PlayerHP : MonoBehaviour
 
     public IEnumerator ReduceHP(int damage)
     {
-        if (_isInvincible || (_playerATK != null &&_playerATK.isGuard))
+        if (_isInvincible || (_playerATK != null &&_playerATK.IsGuard))
         {
             yield break;
         }
 
-        hp -= damage;
+        HP -= damage;
         SEManager.Instance.SEDamage();
 
-        if (hp <= 0)
+        if (HP <= 0)
         {
             Destroy(gameObject);
         }
@@ -65,7 +65,7 @@ public class PlayerHP : MonoBehaviour
     /// <param name="healAmount"></param>
     public void LvUpHP(int plusHP, int healAmount)
     {
-        maxhp += plusHP;   //最大HPの更新
+        MaxHP += plusHP;   //最大HPの更新
         Heal(healAmount);      //回復メソッド
     }
 
@@ -75,8 +75,8 @@ public class PlayerHP : MonoBehaviour
     /// <param name="healAmount"></param>
     private void Heal(int healAmount)
     {
-        hp += healAmount;    //現在のHPに回復量を加算
-        hp = Mathf.Clamp(hp, 0, maxhp);  //最大HPを超えないように丸め込む
+        HP += healAmount;    //現在のHPに回復量を加算
+        HP = Mathf.Clamp(HP, 0, MaxHP);  //最大HPを超えないように丸め込む
 
         UpdateHPUI();
     }
@@ -110,12 +110,12 @@ public class PlayerHP : MonoBehaviour
     {
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)hp / maxhp;
+            _hpBarImage.fillAmount = (float)HP / MaxHP;
         }
 
-        if (hpText != null)
+        if (_hpText != null)
         {
-            hpText.text = hp.ToString();
+            _hpText.text = HP.ToString();
         }
     }
 }

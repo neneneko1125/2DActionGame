@@ -5,10 +5,10 @@ public class PlayerATK : MonoBehaviour
 {
     [SerializeField] private float _dashSpeed = 5.0f;
     [SerializeField] private float _dashMinSpeed = 1.0f;
-    public bool isDashing = false;
+    public bool IsDashing = false;
 
     [SerializeField] private float _downSpeed = 5.0f;
-    public bool isDowning = false;
+    public bool IsDowning = false;
 
     [SerializeField] private float _animTime = 0.5f;
     [SerializeField] private float _animTime_Down = 1.0f;
@@ -19,7 +19,7 @@ public class PlayerATK : MonoBehaviour
     private Animator _anim;
     private Rigidbody2D _rb;
 
-    public bool isGuard = false;
+    public bool IsGuard = false;
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlayerATK : MonoBehaviour
 
     private void ATK()
     {
-        if (_atkCollider.enabled == false && _atkCollider_Dash.enabled == false && _atkCollider_Down.enabled == false && isGuard == false)
+        if (!_atkCollider.enabled && !_atkCollider_Dash.enabled && !_atkCollider_Down.enabled && !IsGuard)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -63,14 +63,14 @@ public class PlayerATK : MonoBehaviour
 
             if (Input.GetMouseButton(1))
             {
-                isGuard = true;
+                IsGuard = true;
                 _anim.SetBool("Guard", true);
             }
         }
 
         if (Input.GetMouseButtonUp(1))
         {
-            isGuard = false;
+            IsGuard = false;
             _anim.SetBool("Guard", false);
         }
 
@@ -90,7 +90,7 @@ public class PlayerATK : MonoBehaviour
     {
         SEManager.Instance.SEDashATK();
 
-        isDashing = true;
+        IsDashing = true;
         _anim.SetBool("DashATK", true);
         _atkCollider_Dash.enabled = true;
 
@@ -111,26 +111,26 @@ public class PlayerATK : MonoBehaviour
         yield return new WaitForSeconds(_animTime);
         _atkCollider_Dash.enabled = false;
         _anim.SetBool("DashATK", false);
-        isDashing = false;
+        IsDashing = false;
     }
 
     private IEnumerator DownATK()
     {
         SEManager.Instance.SEDownATK();
 
-        isDowning = true;
+        IsDowning = true;
         _anim.SetBool("DownATK", true);
         _atkCollider_Down.enabled = true;
         _rb.AddForce(Vector2.down * _downSpeed, ForceMode2D.Impulse);
         yield return new WaitForSeconds(_animTime_Down);
         _atkCollider_Down.enabled = false;
         _anim.SetBool("DownATK", false);
-        isDowning = false;
+        IsDowning = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground") && isDowning)
+        if (collision.gameObject.CompareTag("Ground") && IsDowning)
         {
             _atkCollider_Down.enabled = false;
             _anim.SetBool("DownATK", false);

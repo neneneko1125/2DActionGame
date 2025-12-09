@@ -4,8 +4,8 @@ using System.Collections;
 
 public class EnemyHP : MonoBehaviour
 {
-    public int maxhp = 100;
-    public int hp;
+    public int MaxHP = 100;
+    public int HP;
 
     [SerializeField] private int _exp;
 
@@ -28,7 +28,7 @@ public class EnemyHP : MonoBehaviour
 
     void Start()
     {
-        hp = maxhp;
+        HP = MaxHP;
     }
 
 
@@ -44,10 +44,11 @@ public class EnemyHP : MonoBehaviour
             yield break;
         }
 
-        hp -= damage;
+        HP -= damage;
+
         //SEManager.Instance.SEDamage();
 
-        if (hp <= 0)
+        if (HP <= 0)
         {
             OnDead?.Invoke();
             PlayerLvEXP.Instance.AddExp(_exp);
@@ -85,7 +86,7 @@ public class EnemyHP : MonoBehaviour
     {
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)hp / maxhp;
+            _hpBarImage.fillAmount = (float)HP / MaxHP;
         }
     }
 }

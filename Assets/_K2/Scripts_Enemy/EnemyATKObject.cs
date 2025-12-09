@@ -8,8 +8,7 @@ public class EnemyATKObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ATKê¨å˜");
-            PlayerHP playerHP = collision.gameObject.GetComponent<PlayerHP>();
+            PlayerHP playerHP = collision.GetComponent<PlayerHP>();
 
             if (playerHP != null)
             {

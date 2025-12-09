@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class SEManager : MonoBehaviour
 {
-    [SerializeField] private AudioSource source_damage;  //ダメージSEのAudioSource
-    [SerializeField] private AudioClip clip_damage; //ダメージSEのAudioClip
+    [SerializeField] private AudioSource _source_damage;  //ダメージSEのAudioSource
+    [SerializeField] private AudioClip _clip_damage; //ダメージSEのAudioClip
 
-    [SerializeField] private AudioSource source_ATK;
-    [SerializeField] private AudioClip clip_ATK;
+    [SerializeField] private AudioSource _source_ATK;
+    [SerializeField] private AudioClip _clip_ATK;
 
-    [SerializeField] private AudioSource source_DashATK;
-    [SerializeField] private AudioClip clip_DashATK;
+    [SerializeField] private AudioSource _source_DashATK;
+    [SerializeField] private AudioClip _clip_DashATK;
 
-    [SerializeField] private AudioSource source_DownATK;
-    [SerializeField] private AudioClip clip_DownATK;
+    [SerializeField] private AudioSource _source_DownATK;
+    [SerializeField] private AudioClip _clip_DownATK;
     /*
-    [SerializeField] private AudioSource source_; 
-    [SerializeField] private AudioClip clip_;
+    [SerializeField] private AudioSource _source_; 
+    [SerializeField] private AudioClip _clip_;
     */
 
     public static SEManager Instance { get; private set; }   //シングルトンパターン　
@@ -37,20 +37,20 @@ public class SEManager : MonoBehaviour
     //これを呼び出せばSEを鳴らすことができる
     public void SEDamage()
     {
-        source_damage.Play();
+        _source_damage.Play();
     }
     public void SEATK()
     {
-        source_ATK.Play();
+        _source_ATK.Play();
     }
 
     public void SEDashATK()
     {
-        source_DashATK.Play();
+        _source_DashATK.Play();
     }
 
     public void SEDownATK()
     {
-        source_DownATK.Play();
+        _source_DownATK.Play();
     }
 }

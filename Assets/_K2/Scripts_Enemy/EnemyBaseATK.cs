@@ -22,7 +22,7 @@ public class EnemyBaseATK : MonoBehaviour
     protected bool _atkInterval = false;
 
     //攻撃している最中にON
-    public bool isATK = false;
+    public bool IsATK = false;
 
     protected Transform _player;
 
@@ -54,7 +54,7 @@ public class EnemyBaseATK : MonoBehaviour
                 //ここから実際に攻撃する処理
 
                 _atkInterval = true;
-                isATK = true;
+                IsATK = true;
 
                 //このメソッドが一周するまで待機
                 yield return StartCoroutine(AttackRoutine());
@@ -93,6 +93,6 @@ public class EnemyBaseATK : MonoBehaviour
         _anim.SetBool("EnemyATK", false);
 
         //アニメーションが終わってはじめて攻撃処理を終了とする
-        isATK = false;
+        IsATK = false;
     }
 }

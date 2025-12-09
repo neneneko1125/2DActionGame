@@ -87,10 +87,10 @@ public class FriendMoveState : MonoBehaviour
         float xDistanceToPlayer = Mathf.Abs(_player.position.x - transform.position.x);
         float xDirectionToEnemy = Mathf.Sign(_enemy.position.x - transform.position.x);
 
-        if (!_enemyATK.isATK)
+        if (!_enemyATK.IsATK)
             _friendSprite.transform.localScale = new Vector3(-xDirectionToEnemy * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.isATK || xDistanceToPlayer < _stopDistance)
+        if (_enemyATK.IsATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
@@ -107,10 +107,10 @@ public class FriendMoveState : MonoBehaviour
         float xDirectionToPlayer = Mathf.Sign(_player.position.x - transform.position.x);
 
 
-        if (!_enemyATK.isATK)
+        if (!_enemyATK.IsATK)
             _friendSprite.transform.localScale = new Vector3(-xDirectionToPlayer * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.isATK || xDistanceToPlayer < _stopDistance)
+        if (_enemyATK.IsATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
@@ -167,7 +167,8 @@ public class FriendMoveState : MonoBehaviour
             {
                 _enemy = newEnemy;
 
-                _friendBaseATK.enemy = newEnemy;
+                if(_friendBaseATK != null)
+                    _friendBaseATK.Enemy = newEnemy;
 
                 // “G‚ÌŽ€–SƒCƒxƒ“ƒg‚ðw“Ç
                 var hp = _enemy.GetComponent<EnemyHP>();
@@ -183,7 +184,8 @@ public class FriendMoveState : MonoBehaviour
     {
         float xDistance = Mathf.Abs(_player.position.x - transform.position.x);
 
-        if(xDistance > _warpRange)
+        //–¡•û‚ðŒÄ‚ÑŠñ‚¹‚é@‹­§“I‚ÉŒÄ‚Ô‚Æ‚«‚ÍQ‚ð‰Ÿ‚·
+        if(xDistance > _warpRange || Input.GetKeyDown(KeyCode.Q))
         {
             transform.position = new Vector3(_player.position.x - 1, _player.transform.position.y + 1, _player.transform.position.z);
 

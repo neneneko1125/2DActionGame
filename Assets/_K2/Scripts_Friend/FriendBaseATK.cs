@@ -22,9 +22,9 @@ public class FriendBaseATK : MonoBehaviour
     protected bool _atkInterval = false;
 
     //攻撃している最中にON
-    public bool isATK = false;
+    public bool IsATK = false;
 
-    public Transform enemy;
+    public Transform Enemy;
 
     protected virtual void Start()
     {
@@ -36,14 +36,14 @@ public class FriendBaseATK : MonoBehaviour
     {
         while (true)
         {
-            if(enemy == null)
+            if(Enemy == null)
             {
                 yield return null;
                 continue;
             }
 
             //敵と自身の距離を計算
-            float distance = Vector2.Distance(transform.position, enemy.position);
+            float distance = Vector2.Distance(transform.position, Enemy.position);
 
             //もし敵との距離が一定より離れていれば
             if (distance > attackRange)
@@ -59,7 +59,7 @@ public class FriendBaseATK : MonoBehaviour
                 //ここから実際に攻撃する処理
 
                 _atkInterval = true;
-                isATK = true;
+                IsATK = true;
 
                 //このメソッドが一周するまで待機
                 yield return StartCoroutine(AttackRoutine());
@@ -99,6 +99,6 @@ public class FriendBaseATK : MonoBehaviour
         _anim.SetBool("EnemyATK", false);
 
         //アニメーションが終わってはじめて攻撃処理を終了とする
-        isATK = false;
+        IsATK = false;
     }
 }

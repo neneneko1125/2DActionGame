@@ -4,7 +4,7 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Transform _target;
 
-    [SerializeField] private float smoothTime = 0.2f;
+    [SerializeField] private float _smoothTime = 0.2f;
     private Vector3 _velocity = Vector3.zero;
 
     [SerializeField] private float _minX, _maxX;
@@ -31,7 +31,7 @@ public class CameraManager : MonoBehaviour
             transform.position,
             targetPos,
             ref _velocity,
-            smoothTime
+            _smoothTime
         );
     }
 }

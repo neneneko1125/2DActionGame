@@ -6,34 +6,39 @@ public class EnemySpawner : MonoBehaviour
     //カメラには当たり判定(Triggerにチェックする必要がある)はもちろん、RigidBody2Dも必要であることに注意！！
     //このスクリプトは空のオブジェクトにアタッチ。空のオブジェクトの座標に敵が生成される。空のオブジェクトにも当たり判定(Trigger)を付与しよう！
 
-    [SerializeField] private GameObject _enemyPrefab;  // インスタンス化する敵プレハブ
-    private GameObject _enemy;   //敵がNULLのときに生成するために変数を用意する
+    [SerializeField] private GameObject _enemyPrefab;
 
-    [SerializeField] private int _spawnLimit = 3;    //生成の回数制限
-    private int _spawnCount = 0; //スポーン回数
+    //敵がNULLのときに生成するために変数を用意する
+    private GameObject _enemy;  
 
-    [SerializeField] private float _spawnIntervalTime = 60f; //インターバル時間
-    [SerializeField] private bool _isInterval = false;   //一度生成するとtrueになる
+    [SerializeField] private int _spawnLimit = 3;
+    private int _spawnCount = 0;
+
+    [SerializeField] private float _spawnIntervalTime = 60f;
+    private bool _isInterval = false;
 
     [SerializeField] private bool _rareEnemy = false;
     [SerializeField] private int _rareEnemyProbability = 30;
 
-    void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //レアモンスターなら
-        if (_rareEnemy == true)
+        if (_rareEnemy)
         {
-            int rnd = Random.Range(0, 101); // ※ 0～100の範囲でランダムな整数値が返る
+            // ※ 0～100の範囲でランダムな整数値が返る
+            int rnd = Random.Range(0, 101);
 
             //ランダム整数が出現率を下回ったら
             if (!(rnd < _rareEnemyProbability))
             {
-                Destroy(gameObject);    //スポナー削除
+                //スポナー削除
+                Destroy(gameObject);    
             }
         }
 
-        //インターバル中じゃないかつカウントがまだ上限に達していないかつタグがMainCameraのオブジェクトに触れたら
-        if (_isInterval == false && _spawnCount < _spawnLimit && other.CompareTag("MainCamera"))
+        
+        if (!_isInterval && _spawnCount < _spawnLimit && other.CompareTag("MainCamera"))
         {
             //敵がNULLならば(敵が重複することはない)
             if (_enemy == null)
