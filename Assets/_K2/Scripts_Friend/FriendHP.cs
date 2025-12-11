@@ -3,33 +3,32 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
+/// <summary>
+/// 現在のHP,最大HPはFriendInstanceDataで管理
+/// </summary>
 public class FriendHP : MonoBehaviour
 {
-    [SerializeField] private int _maxHP = 30;
-    private int _nowHP;
+    private FriendInstanceData _instance;
+
+    private int _uiIndex;
+    private CharDataUIManager _uiManager;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
     [SerializeField] private float _blinkIntervalTime = 0.1f;
 
     [SerializeField] private Image _hpBarImage;
-    [SerializeField] private TextMeshProUGUI _hpText;
 
     [SerializeField] private SpriteRenderer _sr;
    
 
-    void Start()
+    public void Initialize(FriendInstanceData data, int uiIndex)
     {
-        _nowHP = _maxHP;
-
-        //最初にTextとBarを初期化
+        _instance = data;
+        _uiIndex = uiIndex;
+        _uiManager = FindAnyObjectByType<CharDataUIManager>();
         UpdateHPUI();
-    }
-
-
-    void Update()
-    {
-
+        
     }
 
     public IEnumerator ReduceHP(int damage)
@@ -39,10 +38,10 @@ public class FriendHP : MonoBehaviour
             yield break;
         }
 
-        _nowHP -= damage;
+        _instance.currentHP -= damage;
         SEManager.Instance.SEDamage();
 
-        if (_nowHP <= 0)
+        if (_instance.currentHP <= 0)
         {
             Destroy(gameObject);
         }
@@ -54,11 +53,11 @@ public class FriendHP : MonoBehaviour
     /// <summary>
     /// 回復　レベルアップのときにも呼ばれる
     /// </summary>
-    /// <param name="healAmount"></param>
+    /// <param name="healAmount"></param>t
     private void Heal(int healAmount)
     {
-        _nowHP += healAmount;    //現在のHPに回復量を加算
-        _nowHP = Mathf.Clamp(_nowHP, 0, _maxHP);  //最大HPを超えないように丸め込む
+        _instance.currentHP += healAmount;    //現在のHPに回復量を加算
+        _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, _instance.BaseData.MaxHP);  //最大HPを超えないように丸め込む
 
         UpdateHPUI();
     }
@@ -90,14 +89,12 @@ public class FriendHP : MonoBehaviour
 
     private void UpdateHPUI()
     {
+        //キャラの上に表示されているバーの更新　使うかはまだ未定
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)_nowHP / _maxHP;
+            _hpBarImage.fillAmount = (float)_instance.currentHP / _instance.BaseData.MaxHP;
         }
 
-        if (_hpText != null)
-        {
-            _hpText.text = _nowHP.ToString();
-        }
+        _uiManager.UpdateHPUI(_uiIndex, _instance.currentHP, _instance.BaseData.MaxHP);
     }
 }

@@ -15,8 +15,8 @@ public class PlayerLvEXP : MonoBehaviour
     [SerializeField] private int _plusHP = 5;
 
     [Header("プレイヤーLvのm乗*n")]
-    [SerializeField] private float exp_n = 5f;
-    [SerializeField] private float exp_m = 1.5f;
+    [SerializeField] private float _exp_n = 5f;
+    [SerializeField] private float _exp_m = 1.5f;
 
     private PlayerHP _playerHP;
 
@@ -38,11 +38,6 @@ public class PlayerLvEXP : MonoBehaviour
     {
         _playerHP = GetComponent<PlayerHP>();
         UpdateLevelUI();
-    }
-
-    void Update()
-    {
-        
     }
 
     /// <summary>
@@ -75,8 +70,6 @@ public class PlayerLvEXP : MonoBehaviour
 
     }
 
-
-
     /// <summary>
     /// 次のレベルに必要な経験値を返す
     /// </summary>
@@ -84,7 +77,7 @@ public class PlayerLvEXP : MonoBehaviour
     /// <returns></returns>
     private int GetRequiredExp(int level)
     {
-        return Mathf.RoundToInt(exp_n * Mathf.Pow(level, exp_m));
+        return Mathf.RoundToInt(_exp_n * Mathf.Pow(level, _exp_m));
     }
 
     /// <summary>
