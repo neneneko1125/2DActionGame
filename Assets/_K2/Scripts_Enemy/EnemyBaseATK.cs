@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+
 public class EnemyBaseATK : MonoBehaviour
 {
     [SerializeField, Header("UŒ‚ŠÔŠuŠÔ")] protected float _atkIntervalTime = 1.0f; 
@@ -24,7 +24,7 @@ public class EnemyBaseATK : MonoBehaviour
     protected bool _atkInterval = false;
 
     //UŒ‚‚µ‚Ä‚¢‚éÅ’†‚ÉON
-    public bool IsATK = false;
+    public bool IsATK { get; private set; }
 
     protected Transform _player;
     protected List<Transform> _targets = new List<Transform>();

@@ -5,8 +5,8 @@ using TMPro;
 
 public class FriendHP : MonoBehaviour
 {
-    public int MaxHP = 30;
-    public int HP;
+    [SerializeField] private int _maxHP = 30;
+    private int _nowHP;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
@@ -20,7 +20,7 @@ public class FriendHP : MonoBehaviour
 
     void Start()
     {
-        HP = MaxHP;
+        _nowHP = _maxHP;
 
         //Å‰‚ÉText‚ÆBar‚ğ‰Šú‰»
         UpdateHPUI();
@@ -39,10 +39,10 @@ public class FriendHP : MonoBehaviour
             yield break;
         }
 
-        HP -= damage;
+        _nowHP -= damage;
         SEManager.Instance.SEDamage();
 
-        if (HP <= 0)
+        if (_nowHP <= 0)
         {
             Destroy(gameObject);
         }
@@ -57,8 +57,8 @@ public class FriendHP : MonoBehaviour
     /// <param name="healAmount"></param>
     private void Heal(int healAmount)
     {
-        HP += healAmount;    //Œ»İ‚ÌHP‚É‰ñ•œ—Ê‚ğ‰ÁZ
-        HP = Mathf.Clamp(HP, 0, MaxHP);  //Å‘åHP‚ğ’´‚¦‚È‚¢‚æ‚¤‚ÉŠÛ‚ß‚Ş
+        _nowHP += healAmount;    //Œ»İ‚ÌHP‚É‰ñ•œ—Ê‚ğ‰ÁZ
+        _nowHP = Mathf.Clamp(_nowHP, 0, _maxHP);  //Å‘åHP‚ğ’´‚¦‚È‚¢‚æ‚¤‚ÉŠÛ‚ß‚Ş
 
         UpdateHPUI();
     }
@@ -92,12 +92,12 @@ public class FriendHP : MonoBehaviour
     {
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)HP / MaxHP;
+            _hpBarImage.fillAmount = (float)_nowHP / _maxHP;
         }
 
         if (_hpText != null)
         {
-            _hpText.text = HP.ToString();
+            _hpText.text = _nowHP.ToString();
         }
     }
 }

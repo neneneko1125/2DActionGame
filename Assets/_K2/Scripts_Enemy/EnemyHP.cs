@@ -5,10 +5,10 @@ using System.Collections;
 public class EnemyHP : MonoBehaviour
 {
     //最大HP
-    public int MaxHP = 100;
+    [SerializeField] private int _maxHP = 30;
 
     //現在のHP
-    public int HP;
+    private int _nowHP;
 
     //経験値
     [SerializeField] private int _exp;
@@ -33,7 +33,7 @@ public class EnemyHP : MonoBehaviour
     void Start()
     {
         //最初に現在のHPを最大HPにする
-        HP = MaxHP;
+        _nowHP = _maxHP;
     }
 
     /// <summary>
@@ -50,12 +50,12 @@ public class EnemyHP : MonoBehaviour
             yield break;
         }
 
-        HP -= damage;
+        _nowHP -= damage;
 
         //SEManager.Instance.SEDamage();
 
         //HPが0以下になったら
-        if (HP <= 0)
+        if (_nowHP <= 0)
         {
             //プレイヤーの味方に知らせる
             OnDead?.Invoke();
@@ -99,7 +99,7 @@ public class EnemyHP : MonoBehaviour
     {
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)HP / MaxHP;
+            _hpBarImage.fillAmount = (float)_nowHP / _maxHP;
         }
     }
 }

@@ -5,8 +5,8 @@ using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
-    public int MaxHP = 100;
-    public int HP;
+    [SerializeField] private int _maxHP = 100;
+    private int _nowHP;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
@@ -27,7 +27,7 @@ public class PlayerHP : MonoBehaviour
 
     void Start()
     {
-        HP = MaxHP;
+        _nowHP = _maxHP;
 
         //最初にTextとBarを初期化
         UpdateHPUI();
@@ -46,10 +46,10 @@ public class PlayerHP : MonoBehaviour
             yield break;
         }
 
-        HP -= damage;
+        _nowHP -= damage;
         SEManager.Instance.SEDamage();
 
-        if (HP <= 0)
+        if (_nowHP <= 0)
         {
             Destroy(gameObject);
         }
@@ -65,7 +65,7 @@ public class PlayerHP : MonoBehaviour
     /// <param name="healAmount"></param>
     public void LvUpHP(int plusHP, int healAmount)
     {
-        MaxHP += plusHP;   //最大HPの更新
+        _maxHP += plusHP;   //最大HPの更新
         Heal(healAmount);      //回復メソッド
     }
 
@@ -75,8 +75,8 @@ public class PlayerHP : MonoBehaviour
     /// <param name="healAmount"></param>
     private void Heal(int healAmount)
     {
-        HP += healAmount;    //現在のHPに回復量を加算
-        HP = Mathf.Clamp(HP, 0, MaxHP);  //最大HPを超えないように丸め込む
+        _nowHP += healAmount;    //現在のHPに回復量を加算
+        _nowHP = Mathf.Clamp(_nowHP, 0, _maxHP);  //最大HPを超えないように丸め込む
 
         UpdateHPUI();
     }
@@ -110,12 +110,12 @@ public class PlayerHP : MonoBehaviour
     {
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)HP / MaxHP;
+            _hpBarImage.fillAmount = (float)_nowHP / _maxHP;
         }
 
         if (_hpText != null)
         {
-            _hpText.text = HP.ToString();
+            _hpText.text = _nowHP.ToString();
         }
     }
 }

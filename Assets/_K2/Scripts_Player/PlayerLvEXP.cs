@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerLvEXP : MonoBehaviour
 {
-    public int PlayerLv = 1;    //プレイヤーのLv
+    [SerializeField] private int _playerLv = 1;   //Inspectorで編集可
+    public int PlayerLv => _playerLv;   //外部からは読み取り専用
+
     [SerializeField] private TextMeshProUGUI levelText; //レベルを表示
 
     private int _playerEXP = 0;   //プレイヤーの経験値　レベルアップの度にリセット
@@ -24,12 +26,10 @@ public class PlayerLvEXP : MonoBehaviour
     {
         if (Instance == null)
         {
-            Debug.Log("Instance = This");
             Instance = this;
         }
         else
         {
-            Debug.Log("PlayerDestroy");
             Destroy(gameObject);
         }
     }
@@ -62,10 +62,10 @@ public class PlayerLvEXP : MonoBehaviour
     private void CheckLevelUp()
     {
         //プレイヤーの経験値が現在のレベルと対応する必要経験値以上ならば
-        while (_playerEXP >= GetRequiredExp(PlayerLv))
+        while (_playerEXP >= GetRequiredExp(_playerLv))
         {
-            _playerEXP -= GetRequiredExp(PlayerLv);    //必要経験値分引く
-            PlayerLv++;    //レベルアップ
+            _playerEXP -= GetRequiredExp(_playerLv);    //必要経験値分引く
+            _playerLv++;    //レベルアップ
           //  SaveLevels();   //レベルを保存
           //  SEManager.Instance.LvUPSE();    //SEを鳴らす
             _playerHP.LvUpHP(_plusHP, 1000);  //最大HPを更新して1000回復するメソッドへ
@@ -93,7 +93,7 @@ public class PlayerLvEXP : MonoBehaviour
     private void UpdateLevelUI()
     {
         if (levelText != null) levelText.text = PlayerLv.ToString();
-        if (expBarImage != null) expBarImage.fillAmount = (float)_playerEXP / GetRequiredExp(PlayerLv);
+        if (expBarImage != null) expBarImage.fillAmount = (float)_playerEXP / GetRequiredExp(_playerLv);
     }
 
    

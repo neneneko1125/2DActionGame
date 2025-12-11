@@ -22,7 +22,7 @@ public class FriendBaseATK : MonoBehaviour
     protected bool _atkInterval = false;
 
     //UŒ‚‚µ‚Ä‚¢‚éÅ’†‚ÉON
-    public bool IsATK = false;
+    public bool IsATK { get; private set; }
 
     public Transform Enemy;
 

@@ -5,10 +5,12 @@ public class PlayerATK : MonoBehaviour
 {
     [SerializeField] private float _dashSpeed = 5.0f;
     [SerializeField] private float _dashMinSpeed = 1.0f;
-    public bool IsDashing = false;
+
+    public bool IsDashing { get; private set; }
 
     [SerializeField] private float _downSpeed = 5.0f;
-    public bool IsDowning = false;
+
+    public bool IsDowning { get; private set; }
 
     [SerializeField] private float _animTime = 0.5f;
     [SerializeField] private float _animTime_Down = 1.0f;
@@ -19,7 +21,7 @@ public class PlayerATK : MonoBehaviour
     private Animator _anim;
     private Rigidbody2D _rb;
 
-    public bool IsGuard = false;
+    public bool IsGuard { get; private set; }
 
     void Start()
     {
