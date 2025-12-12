@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     //カメラが追いかける対象
-    [SerializeField] private Transform _target;
+    private Transform _target;
 
     //滑らかに動く時間　短いほど俊敏に動く
     [SerializeField] private float _smoothTime = 0.2f;
@@ -25,6 +25,12 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     void FollowTarget()
     {
+        if (_target == null)
+        {
+            Debug.Log("プレイヤーの取得");
+            _target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+
         if (_target == null) return;
 
         // 目標位置

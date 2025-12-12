@@ -63,7 +63,7 @@ public class PlayerLvEXP : MonoBehaviour
             _playerLv++;    //レベルアップ
           //  SaveLevels();   //レベルを保存
           //  SEManager.Instance.LvUPSE();    //SEを鳴らす
-            _playerHP.LvUpHP(_plusHP, 1000);  //最大HPを更新して1000回復するメソッドへ
+           // _playerHP.LvUpHP(_plusHP, 1000);  //最大HPを更新して1000回復するメソッドへ
             UpdateLevelUI(); //経験値バーの更新メソッドへ
           
         }

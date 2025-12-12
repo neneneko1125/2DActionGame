@@ -6,10 +6,15 @@ using TMPro;
 public class CharDataUIManager : MonoBehaviour
 {
     [Header("ベースとなるUI")]
-    [SerializeField] private Text[] nameTexts;  //名前は普通のText(仮)
-    [SerializeField] private TextMeshProUGUI[] hpTexts;
-    [SerializeField] private Image[] hpBars;
-    [SerializeField] private Image[] faceIcons;
+    [SerializeField] private Text _nameText; 
+    [SerializeField] private TextMeshProUGUI _hpText;
+    [SerializeField] private Image _hpBar;
+
+
+    [SerializeField] private Text[] _nameTexts;  //名前は普通のText(仮)
+    [SerializeField] private TextMeshProUGUI[] _hpTexts;
+    [SerializeField] private Image[] _hpBars;
+    [SerializeField] private Image[] _faceIcons;
 
     void Start()
     {
@@ -21,28 +26,28 @@ public class CharDataUIManager : MonoBehaviour
         List<FriendData> friends = OrganizationManager.Instance.SelectedFriends;
 
         //iはUIの枠数まで回す
-        for (int i = 0; i < nameTexts.Length; i++)
+        for (int i = 0; i < _nameTexts.Length; i++)
         {
             if (i >= friends.Count)
             {
-                if (nameTexts[i] == null)
+                if (_nameTexts[i] == null)
                     Debug.LogError($"nameTexts[{i}] が Inspector で設定されていません！");
 
-                if (hpTexts[i] == null)
+                if (_hpTexts[i] == null)
                     Debug.LogError($"hpTexts[{i}] が Inspector で設定されていません！");
 
-                if (faceIcons[i] == null)
+                if (_faceIcons[i] == null)
                     Debug.LogError($"faceIcons[{i}] が Inspector で設定されていません！");
 
 
-                if (nameTexts[i] != null)
-                    nameTexts[i].text = "";
+                if (_nameTexts[i] != null)
+                    _nameTexts[i].text = "";
 
-                if (hpTexts[i] != null)
-                    hpTexts[i].text = "";
+                if (_hpTexts[i] != null)
+                    _hpTexts[i].text = "";
 
-                if (faceIcons[i] != null)
-                    faceIcons[i].sprite = null;
+                if (_faceIcons[i] != null)
+                    _faceIcons[i].sprite = null;
 
                 continue;
             }
@@ -53,14 +58,14 @@ public class CharDataUIManager : MonoBehaviour
             if (data == null) continue;
 
             // 名前
-            nameTexts[i].text = data.FriendName;
+            _nameTexts[i].text = data.FriendName;
 
             // HP
-            hpTexts[i].text = data.MaxHP.ToString();
+            _hpTexts[i].text = data.MaxHP.ToString();
 
             // アイコン（あれば）
-            if (faceIcons.Length > i && data.Icon != null)
-                faceIcons[i].sprite = data.Icon;
+            if (_faceIcons.Length > i && data.Icon != null)
+                _faceIcons[i].sprite = data.Icon;
         }
     }
 
@@ -70,13 +75,27 @@ public class CharDataUIManager : MonoBehaviour
     /// <param name="index"></param>
     /// <param name="now"></param>
     /// <param name="max"></param>
-    public void UpdateHPUI(int index, int now, int max)
+    public void UpdateHPUIOfFriend(int index, int nowHP, int maxHP)
     {
-        if (hpTexts[index] != null)
-            hpTexts[index].text = now.ToString();
+        if (_hpTexts[index] != null)
+            _hpTexts[index].text = nowHP.ToString();
 
-        if (hpBars[index] != null)
-            hpBars[index].fillAmount = (float)now / max;
+        if (_hpBars[index] != null)
+            _hpBars[index].fillAmount = (float)nowHP / maxHP;
+    }
+
+    /// <summary>
+    /// PlayerHPでよびだす   
+    /// </summary>
+    /// <param name="nowHP"></param>
+    /// <param name="maxHP"></param>
+    public void UpdateHPUIOfPlayer(int nowHP, int maxHP)
+    {
+        if (_hpText != null)
+            _hpText.text = nowHP.ToString();
+
+        if (_hpBar != null)
+            _hpBar.fillAmount = (float)nowHP / maxHP;
     }
 
 }

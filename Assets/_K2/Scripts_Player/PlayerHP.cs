@@ -5,8 +5,9 @@ using TMPro;
 
 public class PlayerHP : MonoBehaviour
 {
-    [SerializeField] private int _maxHP = 100;
-    private int _nowHP;
+    private PlayerInstanceData _instance;
+
+    private CharDataUIManager _uiManager;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
@@ -25,11 +26,10 @@ public class PlayerHP : MonoBehaviour
     }
 
 
-    void Start()
+    public void Initialize(PlayerInstanceData data)
     {
-        _nowHP = _maxHP;
-
-        //最初にTextとBarを初期化
+        _uiManager = FindAnyObjectByType<CharDataUIManager>();
+        _instance = data;
         UpdateHPUI();
     }
 
@@ -41,15 +41,15 @@ public class PlayerHP : MonoBehaviour
 
     public IEnumerator ReduceHP(int damage)
     {
-        if (_isInvincible || (_playerATK != null &&_playerATK.IsGuard))
+        if (_isInvincible || (_playerATK != null && _playerATK.IsGuard))
         {
             yield break;
         }
 
-        _nowHP -= damage;
+        _instance.currentHP -= damage;
         SEManager.Instance.SEDamage();
 
-        if (_nowHP <= 0)
+        if (_instance.currentHP <= 0)
         {
             Destroy(gameObject);
         }
@@ -59,24 +59,15 @@ public class PlayerHP : MonoBehaviour
     }
 
     /// <summary>
-    /// レベルアップしたときに呼ばれる
-    /// </summary>
-    /// <param name="plusHP"></param>
-    /// <param name="healAmount"></param>
-    public void LvUpHP(int plusHP, int healAmount)
-    {
-        _maxHP += plusHP;   //最大HPの更新
-        Heal(healAmount);      //回復メソッド
-    }
-
-    /// <summary>
     /// 回復　レベルアップのときにも呼ばれる
     /// </summary>
     /// <param name="healAmount"></param>
-    private void Heal(int healAmount)
+    public void Heal(int healAmount)
     {
-        _nowHP += healAmount;    //現在のHPに回復量を加算
-        _nowHP = Mathf.Clamp(_nowHP, 0, _maxHP);  //最大HPを超えないように丸め込む
+        int maxHP = _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
+
+        _instance.currentHP += healAmount;
+        _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, maxHP);
 
         UpdateHPUI();
     }
@@ -104,18 +95,9 @@ public class PlayerHP : MonoBehaviour
         _isInvincible = false;
     }
 
-
-
     private void UpdateHPUI()
     {
-        if (_hpBarImage != null)
-        {
-            _hpBarImage.fillAmount = (float)_nowHP / _maxHP;
-        }
-
-        if (_hpText != null)
-        {
-            _hpText.text = _nowHP.ToString();
-        }
+        _uiManager.UpdateHPUIOfPlayer(_instance.currentHP, _instance.baseData.MaxHP);
     }
+
 }

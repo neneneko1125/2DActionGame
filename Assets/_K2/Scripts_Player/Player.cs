@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
     }
 
-   
+
     private void Walk()
     {
         _direction = Input.GetAxisRaw("Horizontal");

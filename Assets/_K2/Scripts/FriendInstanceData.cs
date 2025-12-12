@@ -1,14 +1,20 @@
 public class FriendInstanceData
 {
-    public FriendData BaseData; // 元のデータ
+    public FriendData baseData; //元のデータ
     public int currentHP;
-    public int currentLv;
-    public int currentEXP;
+    public int level;
+    public int exp;
 
-    //FriendData:ScriptableObjectのこと
+    /// <summary>
+    /// コンストラクタ
+    /// MonoBehaviourだとコンストラクタは使えない
+    /// </summary>
+    /// <param name="data"></param>
     public FriendInstanceData(FriendData data)
     {
-        BaseData = data;
+        baseData = data;
         currentHP = data.MaxHP;
+        level = 1;
+        exp = 0;
     }
 }

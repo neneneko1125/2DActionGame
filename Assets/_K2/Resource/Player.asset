@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae4d43ff7372364fa51792bf31070ac, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
+  _playerName: "\u3077\u308C\u3044\u3084"
+  _maxHP: 50
+  _lv: 1
+  _exp: 0
+  _actionPrefab: {fileID: 7253343039684080039, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
+  _icon: {fileID: 0}
+  _exp_n: 5
+  _exp_m: 1.5
+  _plusHP: 5

@@ -57,7 +57,7 @@ public class FriendHP : MonoBehaviour
     private void Heal(int healAmount)
     {
         _instance.currentHP += healAmount;    //現在のHPに回復量を加算
-        _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, _instance.BaseData.MaxHP);  //最大HPを超えないように丸め込む
+        _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, _instance.baseData.MaxHP);  //最大HPを超えないように丸め込む
 
         UpdateHPUI();
     }
@@ -92,9 +92,9 @@ public class FriendHP : MonoBehaviour
         //キャラの上に表示されているバーの更新　使うかはまだ未定
         if (_hpBarImage != null)
         {
-            _hpBarImage.fillAmount = (float)_instance.currentHP / _instance.BaseData.MaxHP;
+            _hpBarImage.fillAmount = (float)_instance.currentHP / _instance.baseData.MaxHP;
         }
 
-        _uiManager.UpdateHPUI(_uiIndex, _instance.currentHP, _instance.BaseData.MaxHP);
+        _uiManager.UpdateHPUIOfFriend(_uiIndex, _instance.currentHP, _instance.baseData.MaxHP);
     }
 }
