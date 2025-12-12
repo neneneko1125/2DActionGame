@@ -4659,7 +4659,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0ef157d3048ac4895c89c301fcaca5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  _target: {fileID: 917947101}
   _smoothTime: 0.2
   _minX: 0
   _maxX: 159.2
@@ -4738,11 +4737,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!4 &917947101 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5721200646823174750, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
-  m_PrefabInstance: {fileID: 3287075491239959332}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &920904613
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5120,50 @@ MonoBehaviour:
   _spawnIntervalTime: 30
   _rareEnemy: 0
   _rareEnemyProbability: 30
+--- !u!1 &935632801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 935632803}
+  - component: {fileID: 935632802}
+  m_Layer: 0
+  m_Name: EXPManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &935632802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935632801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4249663b7d95d744aae203d159b3662a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EXPGetManager
+--- !u!4 &935632803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935632801}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 883.3617, y: 683.5976, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009775675
 GameObject:
   m_ObjectHideFlags: 0
@@ -21057,7 +21095,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleUIManager
   _nameText: {fileID: 1972390586}
   _hpText: {fileID: 237300786}
+  _lvText: {fileID: 2064575709}
   _hpBar: {fileID: 1880936585}
+  _expBar: {fileID: 425251722}
   _nameTexts:
   - {fileID: 1019900418}
   - {fileID: 2144757963}
@@ -21066,11 +21106,18 @@ MonoBehaviour:
   - {fileID: 598822297}
   - {fileID: 549568251}
   - {fileID: 1110505690}
+  _lvTexts:
+  - {fileID: 1868971958}
+  - {fileID: 692719228}
+  - {fileID: 1893498210}
   _hpBars:
   - {fileID: 1229148546}
   - {fileID: 1501320752}
   - {fileID: 1873219487}
-  _faceIcons: []
+  _expBars:
+  - {fileID: 1445482999}
+  - {fileID: 789293477}
+  - {fileID: 2134753151}
 --- !u!4 &1897003143
 Transform:
   m_ObjectHideFlags: 0
@@ -22522,3 +22569,4 @@ SceneRoots:
   - {fileID: 1897003143}
   - {fileID: 860509790}
   - {fileID: 1797183545}
+  - {fileID: 935632803}

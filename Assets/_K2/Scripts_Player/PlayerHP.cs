@@ -7,14 +7,12 @@ public class PlayerHP : MonoBehaviour
 {
     private PlayerInstanceData _instance;
 
-    private CharDataUIManager _uiManager;
+    private CharDataUIManager _ui;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
     [SerializeField] private float _blinkIntervalTime = 0.1f;
 
-    [SerializeField] private Image _hpBarImage;
-    [SerializeField] private TextMeshProUGUI _hpText; 
 
     [SerializeField] private SpriteRenderer _sr;
     private PlayerATK _playerATK;
@@ -28,9 +26,14 @@ public class PlayerHP : MonoBehaviour
 
     public void Initialize(PlayerInstanceData data)
     {
-        _uiManager = FindAnyObjectByType<CharDataUIManager>();
+        _ui = FindAnyObjectByType<CharDataUIManager>();
+
         _instance = data;
+        _instance.OnLvUp += UpdateLvEXPUI;
+        _instance.OnExpChanged += UpdateLvEXPUI;
+
         UpdateHPUI();
+        UpdateLvEXPUI();
     }
 
 
@@ -97,7 +100,18 @@ public class PlayerHP : MonoBehaviour
 
     private void UpdateHPUI()
     {
-        _uiManager.UpdateHPUIOfPlayer(_instance.currentHP, _instance.baseData.MaxHP);
+        _ui.UpdateHPUIOfPlayer(_instance.currentHP, MaxHP());
+    }
+
+    private void UpdateLvEXPUI()
+    {
+        Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
+        _ui.UpdateLvEXPUIOfPlayer(_instance.currentLv, _instance.currentEXP, _instance.NeedExp());
+    }
+
+    private int MaxHP()
+    {
+        return _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
     }
 
 }

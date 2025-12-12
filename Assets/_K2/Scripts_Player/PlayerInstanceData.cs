@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerInstanceData
 {
@@ -9,6 +10,8 @@ public class PlayerInstanceData
     public int currentLv;
     public int currentEXP;
 
+    public event Action OnLvUp;
+    public event Action OnExpChanged;
 
     public PlayerInstanceData(PlayerData data)
     {
@@ -21,6 +24,8 @@ public class PlayerInstanceData
     public void AddExp(int exp)
     {
         currentEXP += exp;
+        Debug.Log("PlayerInstanceData‚ÌcurrentEXP‚ª" + currentEXP + "‚É‚È‚Á‚½");
+        OnExpChanged?.Invoke();
 
         while (currentEXP >= NeedExp())
         {
@@ -31,11 +36,12 @@ public class PlayerInstanceData
 
     private void LevelUp()
     {
+        OnLvUp?.Invoke();
         currentLv++;
         currentHP = baseData.MaxHP + currentLv * baseData.PlusHP;
     }
 
-    private int NeedExp()
+    public int NeedExp()
     {
         return Mathf.RoundToInt(baseData.Exp_n * Mathf.Pow(currentLv, baseData.Exp_m));
     }

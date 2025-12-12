@@ -60,8 +60,16 @@ public class EnemyHP : MonoBehaviour
             //プレイヤーの味方に知らせる
             OnDead?.Invoke();
 
-            //プレイヤーの経験値を追加する
-            PlayerLvEXP.Instance.AddExp(_exp);
+            if(EXPGetManager.Instance != null)
+            {
+                Debug.Log("EnemyHPでAddExpToAllを呼び出した");
+                EXPGetManager.Instance.AddExpToAll(_exp);
+            }
+            else
+            {
+                Debug.Log("EXPGetManagerのInstanceがnull");
+            }
+                
 
             Destroy(gameObject);
         }

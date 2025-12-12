@@ -830,8 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4aac5c6091af90449c4b7d9ecb028f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
-  MaxHP: 20
-  HP: 0
+  _maxHP: 10
   _exp: 3
   _invincibleTime: 0.25
   _blinkIntervalTime: 0.1
@@ -857,7 +856,6 @@ MonoBehaviour:
   _atkCollider: {fileID: 4449923160697192680}
   _anim: {fileID: 2687111270139399686}
   _atkSign: {fileID: 81978418772607462}
-  IsATK: 0
 --- !u!70 &6148947678429565797
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

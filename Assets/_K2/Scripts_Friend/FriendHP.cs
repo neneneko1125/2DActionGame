@@ -11,7 +11,7 @@ public class FriendHP : MonoBehaviour
     private FriendInstanceData _instance;
 
     private int _uiIndex;
-    private CharDataUIManager _uiManager;
+    private CharDataUIManager _ui;
 
     private bool _isInvincible = false;
     [SerializeField] private float _invincibleTime = 1.0f;
@@ -26,9 +26,13 @@ public class FriendHP : MonoBehaviour
     {
         _instance = data;
         _uiIndex = uiIndex;
-        _uiManager = FindAnyObjectByType<CharDataUIManager>();
+        _ui = FindAnyObjectByType<CharDataUIManager>();
+
+        _instance.OnLvUp += UpdateLvEXPUI;
+        _instance.OnExpChanged += UpdateLvEXPUI;
+
         UpdateHPUI();
-        
+        UpdateLvEXPUI();
     }
 
     public IEnumerator ReduceHP(int damage)
@@ -85,16 +89,19 @@ public class FriendHP : MonoBehaviour
         _isInvincible = false;
     }
 
-
-
     private void UpdateHPUI()
     {
-        //キャラの上に表示されているバーの更新　使うかはまだ未定
-        if (_hpBarImage != null)
-        {
-            _hpBarImage.fillAmount = (float)_instance.currentHP / _instance.baseData.MaxHP;
-        }
+        _ui.UpdateHPUIOfFriend(_uiIndex, _instance.currentHP, MaxHP());
+    }
 
-        _uiManager.UpdateHPUIOfFriend(_uiIndex, _instance.currentHP, _instance.baseData.MaxHP);
+    private void UpdateLvEXPUI()
+    {
+        Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
+        _ui.UpdateLvEXPUIOfFriend(_uiIndex, _instance.currentLv, _instance.currentEXP, _instance.NeedExp());
+    }
+
+    private int MaxHP()
+    {
+        return _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
     }
 }

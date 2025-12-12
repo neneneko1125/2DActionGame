@@ -1,9 +1,15 @@
+using UnityEngine;
+using System;
+
 public class FriendInstanceData
 {
     public FriendData baseData; //元のデータ
     public int currentHP;
-    public int level;
-    public int exp;
+    public int currentLv;
+    public int currentEXP;
+
+    public event Action OnLvUp;
+    public event Action OnExpChanged;
 
     /// <summary>
     /// コンストラクタ
@@ -14,7 +20,32 @@ public class FriendInstanceData
     {
         baseData = data;
         currentHP = data.MaxHP;
-        level = 1;
-        exp = 0;
+        currentLv = 1;
+        currentEXP = 0;
+    }
+
+    public void AddExp(int exp)
+    {
+        currentEXP += exp;
+        Debug.Log("FriendInstanceDataのcurrentEXPが" + currentEXP + "になった");
+        OnExpChanged?.Invoke();
+
+        while (currentEXP >= NeedExp())
+        {
+            currentEXP -= NeedExp();
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        OnLvUp?.Invoke();
+        currentLv++;
+        currentHP = baseData.MaxHP + currentLv * baseData.PlusHP;
+    }
+
+    public int NeedExp()
+    {
+        return Mathf.RoundToInt(baseData.Exp_n * Mathf.Pow(currentLv, baseData.Exp_m));
     }
 }
