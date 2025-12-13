@@ -1,15 +1,12 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 [CreateAssetMenu(menuName = "Friend Data")]
 public class FriendData : ScriptableObject
 {
-    [SerializeField] private string _friendName;
-    [SerializeField] private int _maxHP;
-    [SerializeField] private int _lv;
-    [SerializeField] private int _exp;
-    [SerializeField] private GameObject _actionPrefab;
-    [SerializeField] private Sprite _icon;
+    [SerializeField, Header("名前")] private string _friendName;
+    [SerializeField, Header("最大HP")] private int _maxHP;
+    [SerializeField, Header("Prefab")] private GameObject _actionPrefab;
+    [SerializeField, Header("アイコン")] private Sprite _icon;
 
     [Header("Lvのm乗*n")]
     [SerializeField] private float _exp_n = 5f;
@@ -21,8 +18,6 @@ public class FriendData : ScriptableObject
     //プロパティ 読み取り専用
     public string FriendName => _friendName;
     public int MaxHP => _maxHP;
-    public int Level => _lv;
-    public int Exp => _exp;
     public GameObject ActionPrefab => _actionPrefab;
     public Sprite Icon => _icon;
     public float Exp_n => _exp_n;

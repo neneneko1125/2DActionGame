@@ -3,42 +3,33 @@ using System.Collections.Generic;
 
 public class EXPGetManager : MonoBehaviour
 {
-    public static EXPGetManager Instance;
-
-    public PlayerInstanceData Player;
-    public List<FriendInstanceData> Friends = new List<FriendInstanceData>();
+    public static EXPGetManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
 
-    // Enemy から呼ばれる
     public void AddExpToAll(int exp)
     {
-        // プレイヤー
-        if(Player != null)
-        {
-            Debug.Log("EXPGetManagerでPlayerのAddExpを呼び出した");
-            Player.AddExp(exp);
-        }
+        var ch = CharInstanceManager.Instance;
 
-        // 全フレンド
-        foreach (var f in Friends)
+        if(ch.Player != null)
+        {
+            Debug.Log(ch.Player.baseData.PlayerName + "は" + exp + "経験値を得た");
+            ch.Player.AddExp(exp);
+        }
+        
+        
+        foreach (var f in ch.Friends)
         {
             if(f != null)
             {
-                Debug.Log("EXPGetManagerでFriendのAddExpを呼び出した");
+                Debug.Log(f.baseData.FriendName + "は" + exp + "経験値を得た");
                 f.AddExp(exp);
             }
+            
         }
+            
     }
 }

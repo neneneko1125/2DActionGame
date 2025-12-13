@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// チーム編成するときの管理クラス
+/// チーム全体が収納されているリストと
+/// 出撃メンバーが収納されているリストで管理する
+/// </summary>
 public class OrganizationManager : MonoBehaviour
 {
-    public static OrganizationManager Instance;
+    public static OrganizationManager Instance { get; private set; }
 
-    [SerializeField] private PlayerData _playerData;
+    [SerializeField, Header("PlayerData(SO)")] private PlayerData _playerData;
+
     public List<FriendData> AllFriends = new List<FriendData>();   // 全キャラ
     public List<FriendData> SelectedFriends = new List<FriendData>(); // 出撃メンバー
 
@@ -25,12 +31,17 @@ public class OrganizationManager : MonoBehaviour
     private void Start()
     {
         // Player
-        EXPGetManager.Instance.Player = new PlayerInstanceData(_playerData);
+        CharInstanceManager.Instance.SetPlayer(new PlayerInstanceData(_playerData));
 
         // Friends
+        var list = new List<FriendInstanceData>();
+
         foreach (var data in SelectedFriends)
-        {
-            EXPGetManager.Instance.Friends.Add(new FriendInstanceData(data));
-        }
+            list.Add(new FriendInstanceData(data));
+
+        CharInstanceManager.Instance.SetFriends(list);
     }
+
+
+
 }

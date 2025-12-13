@@ -21,37 +21,31 @@ public class CharDataUIManager : MonoBehaviour
 
     void Start()
     {
-        SetUI();
+        SetFriendNameUI();
+        SetPlayerNameUI();
     }
 
-    private void SetUI()
+    public void SetPlayerNameUI()
+    {
+        var playerInstance = CharInstanceManager.Instance.Player;
+
+        if (playerInstance == null) return;
+
+        _nameText.text = playerInstance.baseData.PlayerName;
+    }
+
+
+    private void SetFriendNameUI()
     {
         List<FriendData> friends = OrganizationManager.Instance.SelectedFriends;
 
         //iはUIの枠数まで回す
         for (int i = 0; i < _nameTexts.Length; i++)
         {
+            //キャラ数がUIより少ないとき
             if (i >= friends.Count)
             {
-                if (_nameTexts[i] == null)
-                    Debug.LogError($"nameTexts[{i}] が Inspector で設定されていません！");
-
-                if (_hpTexts[i] == null)
-                    Debug.LogError($"hpTexts[{i}] が Inspector で設定されていません！");
-
-             //   if (_faceIcons[i] == null)
-             //       Debug.LogError($"faceIcons[{i}] が Inspector で設定されていません！");
-
-
-                if (_nameTexts[i] != null)
-                    _nameTexts[i].text = "";
-
-                if (_hpTexts[i] != null)
-                    _hpTexts[i].text = "";
-
-              //  if (_faceIcons[i] != null)
-              //      _faceIcons[i].sprite = null;
-
+                _nameTexts[i].text = "";
                 continue;
             }
 
@@ -63,12 +57,6 @@ public class CharDataUIManager : MonoBehaviour
             // 名前
             _nameTexts[i].text = data.FriendName;
 
-            // HP
-            _hpTexts[i].text = data.MaxHP.ToString();
-
-            // アイコン（あれば）
-           // if (_faceIcons.Length > i && data.Icon != null)
-            //    _faceIcons[i].sprite = data.Icon;
         }
     }
 

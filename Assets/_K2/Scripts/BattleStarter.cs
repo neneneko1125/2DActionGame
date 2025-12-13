@@ -1,10 +1,7 @@
-using System;
 using UnityEngine;
 
 public class BattleStarter : MonoBehaviour
 {
-    [SerializeField] private PlayerData _player;
-
     void Start()
     {
         SetFriendsData();
@@ -13,7 +10,7 @@ public class BattleStarter : MonoBehaviour
 
     private void SetFriendsData()
     {
-        var friends = EXPGetManager.Instance.Friends;
+        var friends = CharInstanceManager.Instance.Friends;
 
         Debug.Log($"SelectedFriends count = {friends.Count}");
 
@@ -50,9 +47,10 @@ public class BattleStarter : MonoBehaviour
 
     private void SetPlayerData()
     {
-        PlayerInstanceData instance = EXPGetManager.Instance.Player;
+        PlayerInstanceData instance = CharInstanceManager.Instance.Player;
 
         GameObject obj = Instantiate(instance.baseData.ActionPrefab);
+        Debug.Log("PlayerÇê∂ê¨");
 
         PlayerHP hp = obj.GetComponent<PlayerHP>();
         if (hp != null)

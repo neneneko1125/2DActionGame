@@ -28,8 +28,7 @@ public class FriendHP : MonoBehaviour
         _uiIndex = uiIndex;
         _ui = FindAnyObjectByType<CharDataUIManager>();
 
-        _instance.OnLvUp += UpdateHPLvEXPUI;
-        _instance.OnExpChanged += UpdateHPLvEXPUI;
+        _instance.OnChangeLvEXP += UpdateHPLvEXPUI;
 
         UpdateHPUI();
         UpdateLvEXPUI();
@@ -37,12 +36,12 @@ public class FriendHP : MonoBehaviour
 
     public IEnumerator ReduceHP(int damage)
     {
-        if (_isInvincible)
-        {
-            yield break;
-        }
+        if (_isInvincible) yield break;
 
         _instance.currentHP -= damage;
+
+        if (_instance.currentHP < 0) _instance.currentHP = 0;
+
         SEManager.Instance.SEDamage();
 
         if (_instance.currentHP <= 0)
@@ -96,7 +95,6 @@ public class FriendHP : MonoBehaviour
 
     private void UpdateLvEXPUI()
     {
-        Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
         _ui.UpdateLvEXPUIOfFriend(_uiIndex, _instance.currentLv, _instance.currentEXP, _instance.NeedExp());
     }
 

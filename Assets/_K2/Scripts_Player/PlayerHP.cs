@@ -29,8 +29,7 @@ public class PlayerHP : MonoBehaviour
         _ui = FindAnyObjectByType<CharDataUIManager>();
 
         _instance = data;
-        _instance.OnLvUp += UpdateHPLvEXPUI;
-        _instance.OnExpChanged += UpdateHPLvEXPUI;
+        _instance.OnChangeLvEXP += UpdateHPLvEXPUI;
 
         UpdateHPUI();
         UpdateLvEXPUI();
@@ -50,6 +49,9 @@ public class PlayerHP : MonoBehaviour
         }
 
         _instance.currentHP -= damage;
+
+        if(_instance.currentHP < 0) _instance.currentHP = 0;
+
         SEManager.Instance.SEDamage();
 
         if (_instance.currentHP <= 0)
@@ -105,7 +107,6 @@ public class PlayerHP : MonoBehaviour
 
     private void UpdateLvEXPUI()
     {
-        Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
         _ui.UpdateLvEXPUIOfPlayer(_instance.currentLv, _instance.currentEXP, _instance.NeedExp());
     }
 

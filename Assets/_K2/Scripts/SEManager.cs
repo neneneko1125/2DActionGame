@@ -13,6 +13,9 @@ public class SEManager : MonoBehaviour
 
     [SerializeField] private AudioSource _source_DownATK;
     [SerializeField] private AudioClip _clip_DownATK;
+
+    [SerializeField] private AudioSource _source_LvUp;
+    [SerializeField] private AudioClip _clip_LvUp;
     /*
     [SerializeField] private AudioSource _source_; 
     [SerializeField] private AudioClip _clip_;
@@ -52,5 +55,10 @@ public class SEManager : MonoBehaviour
     public void SEDownATK()
     {
         _source_DownATK.Play();
+    }
+
+    public void SELvUp()
+    {
+        _source_LvUp.Play();
     }
 }

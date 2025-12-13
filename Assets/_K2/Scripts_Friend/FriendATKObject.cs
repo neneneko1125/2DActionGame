@@ -30,7 +30,7 @@ public class FriendATKObject : MonoBehaviour
                 SEManager.Instance.SEDamage();
                 _lvMultiplier = 1 + (_instance.currentLv - 1) * _scalingFactor;
                 _atk = Mathf.RoundToInt(_atkDefault * _lvMultiplier + _instance.currentLv);
-                Debug.Log(_instance.baseData.name + "‚ÌUŒ‚—ÍF" + _atk);
+                Debug.Log(_instance.baseData.FriendName + "‚ÌUŒ‚—ÍF" + _atk);
                 StartCoroutine(enemyHP.ReduceHP(_atk));
             }
         }

@@ -499,7 +499,6 @@ GameObject:
   - component: {fileID: 4525040754596713504}
   - component: {fileID: 1346175310621880521}
   - component: {fileID: 6085363285467514128}
-  - component: {fileID: 8731619570936222888}
   - component: {fileID: 2294105928593132928}
   - component: {fileID: 7554476048031686550}
   - component: {fileID: 1635513548346710259}
@@ -548,7 +547,7 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  _checkRadius: 0.1
+  _checkRadius: 0.3
 --- !u!114 &1346175310621880521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,8 +562,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HPManager
   _invincibleTime: 1
   _blinkIntervalTime: 0.1
-  _hpBarImage: {fileID: 0}
-  _hpText: {fileID: 0}
   _sr: {fileID: 2294105928593132928}
 --- !u!114 &6085363285467514128
 MonoBehaviour:
@@ -586,24 +583,6 @@ MonoBehaviour:
   _atkCollider: {fileID: 6480362515670910782}
   _atkCollider_Dash: {fileID: 4322322137154859557}
   _atkCollider_Down: {fileID: 1816304363558453342}
---- !u!114 &8731619570936222888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7253343039684080039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f65cda3a811dc46a71ff319c80724f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerLvEXP
-  _playerLv: 1
-  levelText: {fileID: 0}
-  expBarImage: {fileID: 0}
-  _plusHP: 5
-  _exp_n: 5
-  _exp_m: 1.5
 --- !u!212 &2294105928593132928
 SpriteRenderer:
   m_ObjectHideFlags: 0

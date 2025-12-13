@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   _playerName: "\u3077\u308C\u3044\u3084"
-  _maxHP: 50
-  _lv: 1
-  _exp: 0
+  _maxHP: 40
   _actionPrefab: {fileID: 7253343039684080039, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
   _icon: {fileID: 0}
-  _exp_n: 5
+  _exp_n: 15
   _exp_m: 1.5
   _plusHP: 5

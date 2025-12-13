@@ -8,8 +8,7 @@ public class FriendInstanceData
     public int currentLv;
     public int currentEXP;
 
-    public event Action OnLvUp;
-    public event Action OnExpChanged;
+    public event Action OnChangeLvEXP;
 
     /// <summary>
     /// コンストラクタ
@@ -26,23 +25,26 @@ public class FriendInstanceData
 
     public void AddExp(int exp)
     {
+        if (currentHP <= 0) return;
+
         currentEXP += exp;
-        Debug.Log("FriendInstanceDataのcurrentEXPが" + currentEXP + "になった");
-        OnExpChanged?.Invoke();
+        OnChangeLvEXP?.Invoke();
 
         while (currentEXP >= NeedExp())
         {
             currentEXP -= NeedExp();
-            OnExpChanged?.Invoke();
+            OnChangeLvEXP?.Invoke();
             LevelUp();
         }
+
     }
 
     private void LevelUp()
     {
+        SEManager.Instance.SELvUp();
         currentLv++;
         currentHP = baseData.MaxHP + currentLv * baseData.PlusHP;
-        OnLvUp?.Invoke();
+        OnChangeLvEXP?.Invoke();
     }
 
     public int NeedExp()

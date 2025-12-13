@@ -47,7 +47,12 @@ public class EnemyMoveState : MonoBehaviour
     /// </summary>
     private void ChangeState()
     {
-        float xDistance = Mathf.Abs(_player.position.x - transform.position.x);
+        float xDistance;
+
+        if (_player != null)
+            xDistance = Mathf.Abs(_player.position.x - transform.position.x);
+        else
+            xDistance = 0;
 
         //’Êíó‘Ô‚©‚ÂŒŸ’m‰Â”\‹——£‚æ‚è‹——£‚ª‹ß‚¯‚ê‚Î
         if (_current == State.Patrol && xDistance <= _detectionRange)
