@@ -29,8 +29,8 @@ public class PlayerHP : MonoBehaviour
         _ui = FindAnyObjectByType<CharDataUIManager>();
 
         _instance = data;
-        _instance.OnLvUp += UpdateLvEXPUI;
-        _instance.OnExpChanged += UpdateLvEXPUI;
+        _instance.OnLvUp += UpdateHPLvEXPUI;
+        _instance.OnExpChanged += UpdateHPLvEXPUI;
 
         UpdateHPUI();
         UpdateLvEXPUI();
@@ -107,6 +107,12 @@ public class PlayerHP : MonoBehaviour
     {
         Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
         _ui.UpdateLvEXPUIOfPlayer(_instance.currentLv, _instance.currentEXP, _instance.NeedExp());
+    }
+
+    private void UpdateHPLvEXPUI()
+    {
+        UpdateHPUI();
+        UpdateLvEXPUI();
     }
 
     private int MaxHP()

@@ -28,8 +28,8 @@ public class FriendHP : MonoBehaviour
         _uiIndex = uiIndex;
         _ui = FindAnyObjectByType<CharDataUIManager>();
 
-        _instance.OnLvUp += UpdateLvEXPUI;
-        _instance.OnExpChanged += UpdateLvEXPUI;
+        _instance.OnLvUp += UpdateHPLvEXPUI;
+        _instance.OnExpChanged += UpdateHPLvEXPUI;
 
         UpdateHPUI();
         UpdateLvEXPUI();
@@ -98,6 +98,12 @@ public class FriendHP : MonoBehaviour
     {
         Debug.Log("Lv = " + _instance.currentLv + "  EXP = " + _instance.currentEXP);
         _ui.UpdateLvEXPUIOfFriend(_uiIndex, _instance.currentLv, _instance.currentEXP, _instance.NeedExp());
+    }
+
+    private void UpdateHPLvEXPUI()
+    {
+        UpdateHPUI();
+        UpdateLvEXPUI();
     }
 
     private int MaxHP()

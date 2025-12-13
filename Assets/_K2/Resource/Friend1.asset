@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FriendData
   _friendName: "\u30B9\u30E9\u30A4\u30E0"
   _maxHP: 50
-  _lv: 3
+  _lv: 1
+  _exp: 0
   _actionPrefab: {fileID: 5420053079692961230, guid: 916c0116361791046a7b1e9837094283, type: 3}
   _icon: {fileID: 0}
+  _exp_n: 5
+  _exp_m: 1.2
+  _plusHP: 4

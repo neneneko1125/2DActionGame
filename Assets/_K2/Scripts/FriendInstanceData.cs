@@ -33,15 +33,16 @@ public class FriendInstanceData
         while (currentEXP >= NeedExp())
         {
             currentEXP -= NeedExp();
+            OnExpChanged?.Invoke();
             LevelUp();
         }
     }
 
     private void LevelUp()
     {
-        OnLvUp?.Invoke();
         currentLv++;
         currentHP = baseData.MaxHP + currentLv * baseData.PlusHP;
+        OnLvUp?.Invoke();
     }
 
     public int NeedExp()
