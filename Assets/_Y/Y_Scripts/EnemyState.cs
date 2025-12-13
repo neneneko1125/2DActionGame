@@ -12,16 +12,20 @@ public class EnemyState : MonoBehaviour
     [Header("ターゲット")]
     [SerializeField] private Transform player;
 
-    [Header("距離設定")]
+    [Header("検知する距離")]
     [SerializeField] private float detectDistance = 3f;
 
-    [Header("移動速度")]
+    [Header("巡回速度")]
     [SerializeField] private float patrolSpeed = 1.0f;
+
+    [Header("追跡速度")]
     [SerializeField] private float chaseSpeed = 3.0f;
 
     private Rigidbody2D rb;
     private SpriteRenderer sr;
-    private State _currentState = State.Patrol;
+
+    //State型の変数に「Patrol」を代入 最初はパトロール状態からスタートする
+    private State currentState = State.Patrol;
 
     private void Start()
     {
@@ -51,12 +55,12 @@ public class EnemyState : MonoBehaviour
         if (distance <= detectDistance)
         {
             //追跡状態に変更
-            _currentState = State.Chase;
+            currentState = State.Chase;
         }
         else
         {
             //巡回状態(通常状態)に変更
-            _currentState = State.Patrol;
+            currentState = State.Patrol;
         }
     }
 
@@ -65,7 +69,7 @@ public class EnemyState : MonoBehaviour
     /// </summary>
     private void UpdateState()
     {
-        switch (_currentState)
+        switch (currentState)
         {
             //_currentStateの状態がPatrolのときは
             case State.Patrol:

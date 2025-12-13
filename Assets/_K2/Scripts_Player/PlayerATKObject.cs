@@ -1,11 +1,22 @@
 using UnityEngine;
 
-public class ATKObject : MonoBehaviour
+public class PlayerATKObject : MonoBehaviour
 {
+    private PlayerInstanceData _instance;
+
     [SerializeField] private int _atkDefault = 1;
     [SerializeField] private float _scalingFactor = 1.5f;
     private int _atk;
     private float _lvMultiplier;
+
+    /// <summary>
+    /// PlayerInstaceDataÇéÊìæ
+    /// </summary>
+    /// <param name="data"></param>
+    public void Initialize(PlayerInstanceData data)
+    {
+        _instance = data;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,8 +26,9 @@ public class ATKObject : MonoBehaviour
 
             if (enemyHP != null)
             {
-                _lvMultiplier = 1 + (PlayerLvEXP.Instance.PlayerLv - 1) * _scalingFactor;
-                _atk = Mathf.RoundToInt(_atkDefault * _lvMultiplier + PlayerLvEXP.Instance.PlayerLv);
+                _lvMultiplier = 1 + (_instance.currentLv - 1) * _scalingFactor;
+                _atk = Mathf.RoundToInt(_atkDefault * _lvMultiplier + _instance.currentLv);
+                Debug.Log(_instance.baseData.name + "ÇÃçUåÇóÕÅF" + _atk);
                 StartCoroutine(enemyHP.ReduceHP(_atk));
             }
         }

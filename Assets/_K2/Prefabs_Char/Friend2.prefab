@@ -288,6 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FriendATKObject
   _atkDefault: 1
+  _scalingFactor: 1.5
 --- !u!212 &6053363045588767970
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7317047813477895371
 RectTransform:
   m_ObjectHideFlags: 0
@@ -933,7 +934,6 @@ MonoBehaviour:
   _atkCollider: {fileID: 4449923160697192680}
   _anim: {fileID: 2687111270139399686}
   _atkSign: {fileID: 81978418772607462}
-  IsATK: 0
   Enemy: {fileID: 0}
   _dashSpeed: 13
   _friendSprite: {fileID: 4697126967864603662}
@@ -949,12 +949,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a97a77e41df8d746bde9e9b7d9a569b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FriendHP
-  MaxHP: 30
-  HP: 0
   _invincibleTime: 1
   _blinkIntervalTime: 0.1
   _hpBarImage: {fileID: 6835185222745963447}
-  _hpText: {fileID: 0}
   _sr: {fileID: 1022095506466825962}
 --- !u!70 &6148947678429565797
 CapsuleCollider2D:
