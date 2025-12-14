@@ -168,7 +168,7 @@ public class FriendMoveState : MonoBehaviour
                 _enemy = newEnemy;
 
                 if(_friendBaseATK != null)
-                    _friendBaseATK.Enemy = newEnemy;
+                    _friendBaseATK.enemy = newEnemy;
 
                 // “G‚Ì€–SƒCƒxƒ“ƒg‚ğw“Ç
                 var hp = _enemy.GetComponent<EnemyHP>();

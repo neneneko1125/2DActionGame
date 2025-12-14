@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections;
+
+/// <summary>
+/// ダッシュ攻撃
+/// </summary>
 public class Friend2ATK : FriendBaseATK
 {
     [SerializeField] private float _dashSpeed = 5f;
@@ -34,8 +38,10 @@ public class Friend2ATK : FriendBaseATK
         _atkCollider.enabled = true;
 
         float timer = 0f;
+        //指定時間中なら
         while (timer < _atkTime)
         {
+            //速度を変更する
             _rb.linearVelocity = new Vector2(dashDir.x * _dashSpeed, _rb.linearVelocity.y);
             timer += Time.deltaTime;
             yield return null;

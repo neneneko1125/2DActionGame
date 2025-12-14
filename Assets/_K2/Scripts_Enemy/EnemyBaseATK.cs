@@ -119,6 +119,11 @@ public class EnemyBaseATK : MonoBehaviour
         IsATK = false;
     }
 
+    /// <summary>
+    /// 一番近いターゲットを返す
+    /// targetsにはStartメソッドで既に収納している
+    /// </summary>
+    /// <returns></returns>
     private Transform GetNearestTarget()
     {
         Transform nearest = null;
@@ -130,8 +135,11 @@ public class EnemyBaseATK : MonoBehaviour
             if (t == null) continue; // 死んだ場合
 
             float dist = Vector2.Distance(pos, t.position);
+
+            //今までの最小距離より短い距離なら
             if (dist < minDist)
             {
+                //最小を更新
                 minDist = dist;
                 nearest = t;
             }

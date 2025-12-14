@@ -14,9 +14,9 @@ public class FriendBaseATK : MonoBehaviour
 
     [SerializeField, Header("攻撃判定オブジェクト")] protected Collider2D _atkCollider;
 
-    [SerializeField] protected Animator _anim;
+    [SerializeField, Header("Spriteの方をアタッチ")] protected Animator _anim;
 
-    [SerializeField] protected GameObject _atkSign;
+    [SerializeField, Header("攻撃前の[!]マーク")] protected GameObject _atkSign;
 
     //攻撃待機から攻撃を終えるまでON　ループをうまく動かすためにこれが必要
     protected bool _atkInterval = false;
@@ -24,7 +24,8 @@ public class FriendBaseATK : MonoBehaviour
     //攻撃している最中にON
     public bool IsATK { get; private set; }
 
-    public Transform Enemy;
+    [HideInInspector]//インスペクターで非表示にする
+    public Transform enemy;
 
     protected virtual void Start()
     {
@@ -36,14 +37,14 @@ public class FriendBaseATK : MonoBehaviour
     {
         while (true)
         {
-            if(Enemy == null)
+            if(enemy == null)
             {
                 yield return null;
                 continue;
             }
 
             //敵と自身の距離を計算
-            float distance = Vector2.Distance(transform.position, Enemy.position);
+            float distance = Vector2.Distance(transform.position, enemy.position);
 
             //もし敵との距離が一定より離れていれば
             if (distance > attackRange)
@@ -64,7 +65,7 @@ public class FriendBaseATK : MonoBehaviour
                 //このメソッドが一周するまで待機
                 yield return StartCoroutine(AttackRoutine());
 
-                //
+                //全体ループの待機時間
                 yield return new WaitForSeconds(_atkIntervalTime);
                 _atkInterval = false;
             }

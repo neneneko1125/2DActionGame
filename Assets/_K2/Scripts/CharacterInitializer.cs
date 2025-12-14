@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BattleStarter : MonoBehaviour
+public class CharacterInitializer : MonoBehaviour
 {
     void Start()
     {

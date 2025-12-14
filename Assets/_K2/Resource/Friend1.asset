@@ -17,5 +17,5 @@ MonoBehaviour:
   _actionPrefab: {fileID: 5420053079692961230, guid: 916c0116361791046a7b1e9837094283, type: 3}
   _icon: {fileID: 0}
   _exp_n: 10
-  _exp_m: 1.5
+  _exp_m: 1.2
   _plusHP: 4

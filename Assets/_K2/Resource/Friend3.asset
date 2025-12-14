@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Friend3
   m_EditorClassIdentifier: Assembly-CSharp::FriendData
   _friendName: "\u3074\u304B\u308A\u3093"
-  _maxHP: 50
+  _maxHP: 42
   _actionPrefab: {fileID: 5420053079692961230, guid: 77d2f196145ebff4887cf960361ac18b, type: 3}
   _icon: {fileID: 0}
   _exp_n: 13

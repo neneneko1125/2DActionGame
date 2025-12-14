@@ -4,8 +4,7 @@ using UnityEngine;
 public class CharInstanceManager : MonoBehaviour
 {
     public static CharInstanceManager Instance { get; private set; }
-
-
+    
     public PlayerInstanceData Player { get; private set; }
     public List<FriendInstanceData> Friends { get; private set; } = new();
 

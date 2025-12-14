@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class EXPGetManager : MonoBehaviour
 {
@@ -10,25 +9,22 @@ public class EXPGetManager : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// EnemyHPで呼び出される
+    /// 敵を倒したときの経験値量はEnemyHPで管理している
+    /// </summary>
+    /// <param name="exp"></param>
     public void AddExpToAll(int exp)
     {
         var ch = CharInstanceManager.Instance;
 
-        if(ch.Player != null)
-        {
-            Debug.Log(ch.Player.baseData.PlayerName + "は" + exp + "経験値を得た");
-            ch.Player.AddExp(exp);
-        }
+        //Playerがnullじゃなければ、Playerに経験値を与える
+        ch.Player?.AddExp(exp);
         
-        
+        //それぞれのFriendがnullじゃなければ、Friendたちに経験値を与える
         foreach (var f in ch.Friends)
         {
-            if(f != null)
-            {
-                Debug.Log(f.baseData.FriendName + "は" + exp + "経験値を得た");
-                f.AddExp(exp);
-            }
-            
+            f?.AddExp(exp);
         }
             
     }

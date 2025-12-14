@@ -30,18 +30,18 @@ public class OrganizationManager : MonoBehaviour
 
     private void Start()
     {
-        // Player
+        //CharInstanceManagerのPlayerにInstanceDataを収納する
+        //new PlayerInstanceData(_playerData):SOのデータを元に、Instanceデータを作成
         CharInstanceManager.Instance.SetPlayer(new PlayerInstanceData(_playerData));
 
-        // Friends
         var list = new List<FriendInstanceData>();
-
         foreach (var data in SelectedFriends)
+        {
+            //new FriendInstanceData(data):SOのデータを元に、Instanceデータを作成
             list.Add(new FriendInstanceData(data));
-
+        }
+        //CharInstanceManagerのFriendsにInstanceDataを収納する
         CharInstanceManager.Instance.SetFriends(list);
     }
-
-
 
 }

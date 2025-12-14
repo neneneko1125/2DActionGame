@@ -5,7 +5,6 @@ public class EnemyWallChecker : MonoBehaviour
     [SerializeField] private GameObject _enemySprite;
     private Vector3 _enemyDefaultScale;
 
-
     void Start()
     {
         _enemyDefaultScale = _enemySprite.transform.localScale;

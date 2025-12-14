@@ -11,17 +11,17 @@ public class EnemySpawner : MonoBehaviour
     //敵がNULLのときに生成するために変数を用意する
     private GameObject _enemy;  
 
-    [SerializeField] private int _spawnLimit = 3;
+    [SerializeField, Header("生成する回数の制限")] private int _spawnLimit = 3;
     private int _spawnCount = 0;
 
-    [SerializeField] private float _spawnIntervalTime = 60f;
+    [SerializeField, Header("再生成するまでの時間")] private float _spawnIntervalTime = 60f;
     private bool _isInterval = false;
 
     [SerializeField] private bool _rareEnemy = false;
-    [SerializeField] private int _rareEnemyProbability = 30;
+    [SerializeField, Header("レアエネミーの確率(百分率)")] private int _rareEnemyProbability = 30;
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         //レアモンスターなら
         if (_rareEnemy)
@@ -37,8 +37,8 @@ public class EnemySpawner : MonoBehaviour
             }
         }
 
-
-        if (!_isInterval && _spawnCount < _spawnLimit && other.CompareTag("MainCamera"))
+        //インターバルじゃないかつ生成制限に引っかかってないかつMainCameraを検知したら
+        if (!_isInterval && _spawnCount < _spawnLimit && collision.CompareTag("MainCamera"))
         {
             //敵がNULLならば(敵が重複することはない)
             if (_enemy == null)

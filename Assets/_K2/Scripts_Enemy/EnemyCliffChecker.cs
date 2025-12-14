@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// 崖を検知する(正確には地面がないことを検知する)
+/// </summary>
 public class EnemyCliffChecker : MonoBehaviour
 {
     [SerializeField] private GameObject _enemySprite;
@@ -10,11 +13,6 @@ public class EnemyCliffChecker : MonoBehaviour
         _enemyDefaultScale = _enemySprite.transform.localScale;
     }
 
-
-    void Update()
-    {
-
-    }
 
 
     private void OnTriggerExit2D(Collider2D collision)

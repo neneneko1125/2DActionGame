@@ -22,9 +22,9 @@ public class PlayerInstanceData
     public PlayerInstanceData(PlayerData data)
     {
         baseData = data;
+        currentHP = data.MaxHP;
         currentLv = 1;
         currentEXP = 0;
-        currentHP = data.MaxHP;
     }
 
     /// <summary>

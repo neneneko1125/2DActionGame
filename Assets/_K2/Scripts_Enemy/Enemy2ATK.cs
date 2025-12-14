@@ -1,5 +1,9 @@
 using UnityEngine;
 using System.Collections;
+
+/// <summary>
+/// ダッシュ攻撃
+/// </summary>
 public class Enemy2ATK : EnemyBaseATK
 {
     [SerializeField] private float _dashSpeed = 5f;
