@@ -577,10 +577,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerATK
   _dashSpeed: 18
   _dashMinSpeed: 4
-  _downSpeed: 5
+  _downSpeed: 8
   _animTime: 0.2
-  _animTime_Dash: 0.15
-  _dashAfterTime: 0.15
+  _animTime_Dash: 0.2
+  _dashAfterTime: 0.2
   _animTime_Down: 0.5
   _atkCollider: {fileID: 6480362515670910782}
   _atkCollider_Dash: {fileID: 4322322137154859557}

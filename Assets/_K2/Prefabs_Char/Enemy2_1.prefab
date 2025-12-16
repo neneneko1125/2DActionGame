@@ -832,8 +832,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
   _maxHP: 20
   _exp: 4
-  _invincibleTime: 0.25
-  _blinkIntervalTime: 0.1
+  _invincibleTime: 0.15
+  _blinkIntervalTime: 0.05
   _hpBarImage: {fileID: 6835185222745963447}
   _sr: {fileID: 1022095506466825962}
 --- !u!114 &-7751136399867277172

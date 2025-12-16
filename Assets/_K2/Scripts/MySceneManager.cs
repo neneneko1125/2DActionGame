@@ -10,6 +10,7 @@ public class MySceneManager : MonoBehaviour
 
     public void OnClickMain()
     {
+        OrganizationManager.Instance.ApplyOrganization();
         SceneManager.LoadScene("MainScene");
     }
 }

@@ -7759,6 +7759,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1022095506466825962, guid: 7cf8941096c3c634a801f7c31b309014, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5420053079692961230, guid: 7cf8941096c3c634a801f7c31b309014, type: 3}
       propertyPath: m_Name
       value: Friend2
@@ -7769,11 +7773,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 7cf8941096c3c634a801f7c31b309014, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.78
+      value: 11.41
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 7cf8941096c3c634a801f7c31b309014, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.41
+      value: -1.4100001
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 7cf8941096c3c634a801f7c31b309014, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20892,6 +20896,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 27152d3e33a875941be3f6a207bc8098, type: 2}
   - m_RefCount: 703
     m_Data: {fileID: 11400000, guid: 7219a1102890ce24fa8ada6266bcf0e9, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 238
     m_Data: {fileID: 6028043574794506212, guid: f6226a94c05b4c4429e22a5334da1c6b, type: 3}
@@ -20899,6 +20907,10 @@ Tilemap:
     m_Data: {fileID: -8363380156707305828, guid: 081711ce0fd5c57448ecc6c10be9a321, type: 3}
   - m_RefCount: 703
     m_Data: {fileID: 5426111050168297915, guid: d96b3a50b0c580940938a50ee0d6a591, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 969
     m_Data:
@@ -21637,6 +21649,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 397600459
       objectReference: {fileID: 0}
+    - target: {fileID: 1022095506466825962, guid: 916c0116361791046a7b1e9837094283, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5420053079692961230, guid: 916c0116361791046a7b1e9837094283, type: 3}
       propertyPath: m_Name
       value: Friend1
@@ -21647,11 +21663,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 916c0116361791046a7b1e9837094283, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.38
+      value: 12.81
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 916c0116361791046a7b1e9837094283, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.45
+      value: -1.45
       objectReference: {fileID: 0}
     - target: {fileID: 8524183665246816864, guid: 916c0116361791046a7b1e9837094283, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22625,11 +22641,11 @@ PrefabInstance:
       objectReference: {fileID: 1880936585}
     - target: {fileID: 5721200646823174750, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.31
+      value: 16.25
       objectReference: {fileID: 0}
     - target: {fileID: 5721200646823174750, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.22
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: 5721200646823174750, guid: 5c14a274da9c5d64b8d2834093c88404, type: 3}
       propertyPath: m_LocalPosition.z

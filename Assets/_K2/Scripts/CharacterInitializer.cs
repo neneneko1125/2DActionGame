@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CharacterInitializer : MonoBehaviour
 {
@@ -6,6 +7,12 @@ public class CharacterInitializer : MonoBehaviour
     {
         SetFriendsData();
         SetPlayerData();
+    }
+
+    private IEnumerator InitializeFriendsDelayed()
+    {
+        yield return new WaitForSeconds(0.1f); // 遅らせたい秒数
+        SetFriendsData();
     }
 
     private void SetFriendsData()
@@ -21,6 +28,7 @@ public class CharacterInitializer : MonoBehaviour
             // 画面にキャラを生成
             GameObject obj = Instantiate(instance.baseData.ActionPrefab);
 
+            if(obj != null) Debug.Log("FriendのInstantiateに失敗");
 
             // FriendHPへインスタンスデータ + インデックスを渡す
             FriendHP hp = obj.GetComponent<FriendHP>();
