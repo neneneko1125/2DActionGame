@@ -16,8 +16,6 @@ public class AllFriendsUIManager : MonoBehaviour
         //全てのFriendを調べる
         foreach (var data in OrganizationManager.Instance.AllFriends)
         {
-            Debug.Log("Friendボタン生成");
-
             //_contentを親にしてFriendButtonを生成する
             var btn = Instantiate(_buttonPrefab, _content);
 
@@ -34,7 +32,7 @@ public class AllFriendsUIManager : MonoBehaviour
         {
             //出撃UIを更新
             SelectedFriendsUIManager.Instance.Refresh();
-            Debug.Log("出撃枠へのデータの追加に成功しました");
+          //  Debug.Log("出撃枠へのデータの追加に成功しました");
         }
     }
 

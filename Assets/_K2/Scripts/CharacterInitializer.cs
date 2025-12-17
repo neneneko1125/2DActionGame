@@ -28,8 +28,6 @@ public class CharacterInitializer : MonoBehaviour
             // 画面にキャラを生成
             GameObject obj = Instantiate(instance.baseData.ActionPrefab);
 
-            if(obj != null) Debug.Log("FriendのInstantiateに失敗");
-
             // FriendHPへインスタンスデータ + インデックスを渡す
             FriendHP hp = obj.GetComponent<FriendHP>();
             if (hp != null)
@@ -58,7 +56,6 @@ public class CharacterInitializer : MonoBehaviour
         PlayerInstanceData instance = CharInstanceManager.Instance.Player;
 
         GameObject obj = Instantiate(instance.baseData.ActionPrefab);
-        Debug.Log("Playerを生成");
 
         PlayerHP hp = obj.GetComponent<PlayerHP>();
         if (hp != null)

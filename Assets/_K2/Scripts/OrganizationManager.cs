@@ -40,8 +40,6 @@ public class OrganizationManager : MonoBehaviour
         var list = new List<FriendInstanceData>();
         foreach (var data in SelectedFriends)
         {
-            Debug.Log("listにSelectedFriendsを加えた");
-
             //new FriendInstanceData(data):SOのデータを元に、Instanceデータを作成
             list.Add(new FriendInstanceData(data));
         }
