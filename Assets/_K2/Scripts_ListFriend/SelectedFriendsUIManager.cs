@@ -26,6 +26,7 @@ public class SelectedFriendsUIManager : MonoBehaviour
 
         for (int i = 0; i < _slots.Length; i++)
         {
+            //出撃枠が残ってるか確認
             if (i < list.Count)
                 _slots[i].Set(list[i]);
             else

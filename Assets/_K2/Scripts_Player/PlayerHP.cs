@@ -54,6 +54,8 @@ public class PlayerHP : MonoBehaviour
 
         SEManager.Instance.SEDamage();
 
+        DamageTextSpawn.Instance.SpawnDamageTextPlayer(transform.position, damage);
+
         //HPが0以下になったら
         if (_instance.currentHP <= 0)
         {
@@ -67,7 +69,7 @@ public class PlayerHP : MonoBehaviour
     }
 
     /// <summary>
-    /// 回復
+    /// HealObjectから呼び出される
     /// </summary>
     /// <param name="healAmount"></param>
     public void Heal(int healAmount)
@@ -75,13 +77,13 @@ public class PlayerHP : MonoBehaviour
         //現在のレベルから最大HPを計算
         int maxHP = _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
 
-        //HPが0以下でなければ回復
-        if (_instance.currentHP <= 0) _instance.currentHP += healAmount;  
+        _instance.currentHP += healAmount;
 
         //最大HPを超えないように
         _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, maxHP);
 
         UpdateHPUI();
+        Debug.Log("回復終了 現在のプレイヤーのHPは"+ _instance.currentHP);
     }
 
     /// <summary>

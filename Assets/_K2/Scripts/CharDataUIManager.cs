@@ -6,14 +6,14 @@ using TMPro;
 public class CharDataUIManager : MonoBehaviour
 {
     [Header("ベースとなるUI")]
-    [SerializeField] private Text _nameText; 
+    [SerializeField] private TextMeshProUGUI _nameText; 
     [SerializeField] private TextMeshProUGUI _hpText;
     [SerializeField] private TextMeshProUGUI _lvText;
     [SerializeField] private Image _hpBar;
     [SerializeField] private Image _expBar;
 
 
-    [SerializeField] private Text[] _nameTexts;  //名前は普通のText(仮)
+    [SerializeField] private TextMeshProUGUI[] _nameTexts;  
     [SerializeField] private TextMeshProUGUI[] _hpTexts;
     [SerializeField] private TextMeshProUGUI[] _lvTexts;
     [SerializeField] private Image[] _hpBars;

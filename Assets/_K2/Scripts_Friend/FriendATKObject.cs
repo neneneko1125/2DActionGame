@@ -9,8 +9,10 @@ public class FriendATKObject : MonoBehaviour
     private int _atk;
     private float _lvMultiplier;
 
+    [SerializeField, Header("近距離攻撃しないキャラはチェック")] private bool _noATKChar = false;
+
     /// <summary>
-    /// PriendInstaceDataを取得
+    /// FriendInstaceDataを取得
     /// </summary>
     /// <param name="data"></param>
     public void Initialize(FriendInstanceData data)
@@ -21,7 +23,7 @@ public class FriendATKObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && !_noATKChar)
         {
             EnemyHP enemyHP = collision.GetComponent<EnemyHP>();
 

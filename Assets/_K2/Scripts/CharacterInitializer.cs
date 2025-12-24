@@ -33,19 +33,32 @@ public class CharacterInitializer : MonoBehaviour
             if (hp != null)
                 hp.Initialize(instance, i);
 
+            //Friend4は遠距離回復なので個別にインスタンスデータを扱う
+            FriendBaseHeal friendHeal = obj.GetComponent<FriendBaseHeal>();
+            if(friendHeal != null)
+            {
+                friendHeal.Initialize(instance);
+            }
+
+            //Friend5は遠距離攻撃なので個別にインスタンスデータを扱う
+            Friend5ATK friend5ATK = obj.GetComponent<Friend5ATK>();
+            if (friend5ATK != null)
+            {
+                friend5ATK.Initialize(instance);
+            }
+
 
             //FriendATKObjectへインスタンスデータを渡す
             FriendATKObject[] atkObjs = obj.GetComponentsInChildren<FriendATKObject>(true);
-            if (atkObjs.Length == 0)
-            {
-                Debug.LogError("FriendATKObject が1つも見つかりません");
-                return;
-            }
+            if (atkObjs.Length == 0) Debug.Log("FriendATKObject が1つも見つかりません");
+
             foreach (var atkObj in atkObjs)
             {
                 if (atkObj != null)
                     atkObj.Initialize(instance);
             }
+
+
         }
     }
 

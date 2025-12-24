@@ -24,7 +24,7 @@ public class FriendMoveState : MonoBehaviour
 
 
     private Rigidbody2D _rb;
-    private FriendBaseATK _enemyATK;
+    private FriendBaseATK _friendATK;
     private FriendBaseATK _friendBaseATK;
 
     [SerializeField] private GameObject _wallChecker;
@@ -35,14 +35,14 @@ public class FriendMoveState : MonoBehaviour
     private void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _enemyATK = GetComponent<FriendBaseATK>();
+        _friendATK = GetComponent<FriendBaseATK>();
         _rb = GetComponent<Rigidbody2D>();
         _friendBaseATK = GetComponent<FriendBaseATK>();
 
 
         _defaultScale = _friendSprite.transform.localScale;
 
-        //敵のスピードを乱数調整する
+        //スピードを乱数調整する
         _chaseSpeed = Random.Range(_chaseSpeed * 0.75f, _chaseSpeed * 1.25f);
         _followSpeed = Random.Range(_followSpeed * 0.9f, _followSpeed * 1.1f);
 
@@ -87,10 +87,10 @@ public class FriendMoveState : MonoBehaviour
         float xDistanceToPlayer = Mathf.Abs(_player.position.x - transform.position.x);
         float xDirectionToEnemy = Mathf.Sign(_enemy.position.x - transform.position.x);
 
-        if (!_enemyATK.IsATK)
+        if (!_friendATK.IsATK)
             _friendSprite.transform.localScale = new Vector3(-xDirectionToEnemy * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.IsATK || xDistanceToPlayer < _stopDistance)
+        if (_friendATK.IsATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }
@@ -107,10 +107,10 @@ public class FriendMoveState : MonoBehaviour
         float xDirectionToPlayer = Mathf.Sign(_player.position.x - transform.position.x);
 
 
-        if (!_enemyATK.IsATK)
+        if (!_friendATK.IsATK)
             _friendSprite.transform.localScale = new Vector3(-xDirectionToPlayer * _defaultScale.x, _defaultScale.y, _defaultScale.z);
 
-        if (_enemyATK.IsATK || xDistanceToPlayer < _stopDistance)
+        if (_friendATK.IsATK || xDistanceToPlayer < _stopDistance)
         {
             _rb.linearVelocityX = 0;
         }

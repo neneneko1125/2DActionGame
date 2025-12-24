@@ -4,27 +4,25 @@ using System.Collections;
 
 public class EnemyHP : MonoBehaviour
 {
-    //最大HP
-    [SerializeField] private int _maxHP = 30;
+    [SerializeField, Header("最大HP")] private int _maxHP = 30;
 
     //現在のHP
     private int _currentHP;
 
-    //経験値
-    [SerializeField] private int _exp;
+    [SerializeField, Header("経験値")] private int _exp;
 
     //無敵中ならtrue
     private bool _isInvincible = false;
 
-    //被弾した後の無敵の時間
-    [SerializeField] private float _invincibleTime = 1.0f;
+    [SerializeField, Header("被弾した後の無敵の時間")] private float _invincibleTime = 1.0f;
 
-    //一回の点滅の時間
-    [SerializeField] private float _blinkIntervalTime = 0.1f;
+    [SerializeField, Header("一回の点滅の時間")] private float _blinkIntervalTime = 0.1f;
 
-    [SerializeField] private Image _hpBarImage;
+    [SerializeField, Header("HPバーの画像")] private Image _hpBarImage;
 
-    [SerializeField] private SpriteRenderer _sr;
+    [SerializeField, Header("ドロップアイテム")] private GameObject _dropItem;
+
+    [SerializeField, Header("敵のBody側をアタッチ")] private SpriteRenderer _sr;
 
     //死亡時にプレイヤーの味方に知らせる
     public System.Action OnDead;
@@ -54,6 +52,8 @@ public class EnemyHP : MonoBehaviour
 
         //SEManager.Instance.SEDamage();
 
+        DamageTextSpawn.Instance.SpawnDamageTextEnemy(transform.position, damage);
+
         //HPが0以下になったら
         if (_currentHP <= 0)
         {
@@ -62,12 +62,21 @@ public class EnemyHP : MonoBehaviour
 
             if(EXPGetManager.Instance != null)
             {
-                Debug.Log("EnemyHPでAddExpToAllを呼び出した");
                 EXPGetManager.Instance.AddExpToAll(_exp);
             }
             else
             {
                 Debug.Log("EXPGetManagerのInstanceがnull");
+            }
+
+            if(_dropItem != null)
+            {
+                //コインを生成
+                Instantiate(_dropItem, transform.position, Quaternion.identity);
+            }
+            else
+            {
+                Debug.Log("何も落とさなかった");
             }
                 
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 [CreateAssetMenu(menuName = "Friend Data")]
 public class FriendData : ScriptableObject
 {

@@ -52,6 +52,8 @@ public class FriendHP : MonoBehaviour
 
         SEManager.Instance.SEDamage();
 
+        DamageTextSpawn.Instance.SpawnDamageTextPlayer(transform.position, damage);
+
         //HP‚ª0ˆÈ‰º‚É‚È‚Á‚½‚ç
         if (_instance.currentHP <= 0)
         {
@@ -65,16 +67,15 @@ public class FriendHP : MonoBehaviour
     }
 
     /// <summary>
-    /// ‰ñ•œ
+    /// HealObject‚©‚çŒÄ‚Ño‚³‚ê‚é
     /// </summary>
     /// <param name="healAmount"></param>
-    private void Heal(int healAmount)
+    public void Heal(int healAmount)
     {
         //Œ»İ‚ÌƒŒƒxƒ‹‚©‚çÅ‘åHP‚ğŒvZ
         int maxHP = _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
 
-        //HP‚ª0ˆÈ‰º‚Å‚È‚¯‚ê‚Î‰ñ•œ
-        if (_instance.currentHP <= 0) _instance.currentHP += healAmount;
+         _instance.currentHP += healAmount;
 
         //Å‘åHP‚ğ’´‚¦‚È‚¢‚æ‚¤‚É
         _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, maxHP);

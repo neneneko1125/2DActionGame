@@ -16,6 +16,9 @@ public class SEManager : MonoBehaviour
 
     [SerializeField] private AudioSource _source_LvUp;
     [SerializeField] private AudioClip _clip_LvUp;
+
+    [SerializeField] private AudioSource _source_coin;
+    [SerializeField] private AudioClip _clip_coin;
     /*
     [SerializeField] private AudioSource _source_; 
     [SerializeField] private AudioClip _clip_;
@@ -27,7 +30,8 @@ public class SEManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this; 
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -58,5 +62,10 @@ public class SEManager : MonoBehaviour
     public void SELvUp()
     {
         _source_LvUp.Play();
+    }
+
+    public void SECoin()
+    {
+        _source_coin.Play();
     }
 }

@@ -835,6 +835,7 @@ MonoBehaviour:
   _invincibleTime: 0.15
   _blinkIntervalTime: 0.05
   _hpBarImage: {fileID: 6835185222745963447}
+  _dropItem: {fileID: 427295853155965831, guid: 8b2fc9bf79aeda543a1fbaaba3c711bb, type: 3}
   _sr: {fileID: 1022095506466825962}
 --- !u!114 &-2767153421933927995
 MonoBehaviour:

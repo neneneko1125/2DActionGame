@@ -9,7 +9,8 @@ public class Coin : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             DropItemManager.Instance.dropCoinCount += _addCoin;
-            Debug.Log(DropItemManager.Instance.dropCoinCount);
+            DropItemManager.Instance.UpdateDropCoinText();
+            SEManager.Instance.SECoin();
             Destroy(gameObject);
         }
     }

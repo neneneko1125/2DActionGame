@@ -15,7 +15,7 @@ MonoBehaviour:
   _friendName: "\u30B9\u30E9\u30A4\u30E0"
   _maxHP: 25
   _actionPrefab: {fileID: 5420053079692961230, guid: 916c0116361791046a7b1e9837094283, type: 3}
-  _icon: {fileID: 0}
-  _exp_n: 10
+  _icon: {fileID: 21300000, guid: 640592c1097abbe409e354c22129a17d, type: 3}
+  _exp_n: 8
   _exp_m: 1.2
   _plusHP: 4

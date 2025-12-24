@@ -20,6 +20,15 @@ public class DropItemManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        //ゲーム開始時にも更新
+        UpdateDropCoinText();
+    }
+
+    /// <summary>
+    /// コインの数を示すテキストの更新
+    /// </summary>
     public void UpdateDropCoinText()
     {
         if (_dropCoinText != null)
