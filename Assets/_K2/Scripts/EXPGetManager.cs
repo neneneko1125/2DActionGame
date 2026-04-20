@@ -6,7 +6,15 @@ public class EXPGetManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if(Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -16,13 +24,11 @@ public class EXPGetManager : MonoBehaviour
     /// <param name="exp"></param>
     public void AddExpToAll(int exp)
     {
-        var ch = CharInstanceManager.Instance;
-
         //Playerがnullじゃなければ、Playerに経験値を与える
-        ch.Player?.AddExp(exp);
+        CharacterInstanceManager.Instance.PlayerInstanceData?.AddExp(exp);
         
         //それぞれのFriendがnullじゃなければ、Friendたちに経験値を与える
-        foreach (var f in ch.Friends)
+        foreach (var f in CharacterInstanceManager.Instance.FriendsInstanceDataList)
         {
             f?.AddExp(exp);
         }

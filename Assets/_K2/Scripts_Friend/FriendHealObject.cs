@@ -6,8 +6,8 @@ public class FriendHealObject : MonoBehaviour
 
     [SerializeField] private int _healDefault = 1;
     [SerializeField] private float _scalingFactor = 1.5f;
-    
 
+    [SerializeField] private bool _destroy = true;
     /// <summary>
     /// FriendInstaceData‚ðŽæ“¾
     /// </summary>
@@ -22,7 +22,6 @@ public class FriendHealObject : MonoBehaviour
     {
         if (_instance == null) 
         {
-            Debug.Log("Instance‚ªnull");
             return;
         }
 
@@ -30,26 +29,25 @@ public class FriendHealObject : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player‚ðŒŸ’m‚µ‚½");
             var hp = collision.GetComponent<PlayerHP>();
             if (hp != null)
             {
-                Debug.Log("Player‚ð‰ñ•œ");
                 hp.Heal(heal);
             }
         }
         else if (collision.CompareTag("Friend"))
         {
-            Debug.Log("Friend‚ðŒŸ’m‚µ‚½");
             var hp = collision.GetComponent<FriendHP>();
             if (hp != null)
             {
-                Debug.Log("Friend‚ð‰ñ•œ");
                 hp.Heal(heal);
             }
         }
 
-        Destroy(gameObject);
+        if (_destroy)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private int CalcHeal()

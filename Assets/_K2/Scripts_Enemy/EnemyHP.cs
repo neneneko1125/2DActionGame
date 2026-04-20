@@ -4,29 +4,32 @@ using System.Collections;
 
 public class EnemyHP : MonoBehaviour
 {
-    [SerializeField, Header("最大HP")] private int _maxHP = 30;
+    [Header("最大HP")]
+    [SerializeField] private int _maxHP = 30;
 
     //現在のHP
     private int _currentHP;
 
-    [SerializeField, Header("経験値")] private int _exp;
+    [Header("経験値")]
+    [SerializeField] private int _exp;
+
+    [Header("被弾した後の無敵の時間")]
+    [SerializeField] private float _invincibleTime = 1.0f;
+
+    [Header("一回の点滅の時間")]
+    [SerializeField] private float _blinkIntervalTime = 0.1f;
+
+    [Header("HPバーの画像")]
+    [SerializeField] private Image _hpBarImage;
+
+    [Header("ドロップアイテム")]
+    [SerializeField] private GameObject _dropItem;
+
+    [Header("敵のBody側をアタッチ")]
+    [SerializeField] private SpriteRenderer _sr;
 
     //無敵中ならtrue
     private bool _isInvincible = false;
-
-    [SerializeField, Header("被弾した後の無敵の時間")] private float _invincibleTime = 1.0f;
-
-    [SerializeField, Header("一回の点滅の時間")] private float _blinkIntervalTime = 0.1f;
-
-    [SerializeField, Header("HPバーの画像")] private Image _hpBarImage;
-
-    [SerializeField, Header("ドロップアイテム")] private GameObject _dropItem;
-
-    [SerializeField, Header("敵のBody側をアタッチ")] private SpriteRenderer _sr;
-
-    //死亡時にプレイヤーの味方に知らせる
-    public System.Action OnDead;
-
 
     void Start()
     {
@@ -39,7 +42,7 @@ public class EnemyHP : MonoBehaviour
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
-    public IEnumerator ReduceHP(int damage)
+    public IEnumerator ReduceHP(int damage, bool isCritical)
     {
         //無敵中なら
         if (_isInvincible)
@@ -48,38 +51,37 @@ public class EnemyHP : MonoBehaviour
             yield break;
         }
 
+        //HPを減らす
         _currentHP -= damage;
 
-        //SEManager.Instance.SEDamage();
-
-        DamageTextSpawn.Instance.SpawnDamageTextEnemy(transform.position, damage);
+        //会心の一撃なら
+        if (isCritical)
+        {
+            //黄色の文字で受けたダメージを表示する
+            DamageAndHealTextSpawn.Instance.SpawnCriticalDamageText(transform.position, damage);
+        }
+        else
+        {
+            //白文字で受けたダメージ数を表示する
+            DamageAndHealTextSpawn.Instance.SpawnDamageTextEnemy(transform.position, damage);
+        }
+        
 
         //HPが0以下になったら
         if (_currentHP <= 0)
         {
-            //プレイヤーの味方に知らせる
-            OnDead?.Invoke();
-
             if(EXPGetManager.Instance != null)
             {
+                //プレイヤーたちに経験値を配る
                 EXPGetManager.Instance.AddExpToAll(_exp);
-            }
-            else
-            {
-                Debug.Log("EXPGetManagerのInstanceがnull");
             }
 
             if(_dropItem != null)
             {
-                //コインを生成
+                //アイテムを生成
                 Instantiate(_dropItem, transform.position, Quaternion.identity);
             }
-            else
-            {
-                Debug.Log("何も落とさなかった");
-            }
                 
-
             Destroy(gameObject);
         }
 
@@ -94,20 +96,30 @@ public class EnemyHP : MonoBehaviour
     private IEnumerator BlinkInvincible()
     {
         _isInvincible = true;
-
         float timer = 0f;
+
+        //元の色
+        Color defaultColor = _sr.color;
 
         while (timer < _invincibleTime)
         {
-            //透明不透明の切り替え
-            _sr.enabled = !_sr.enabled;
+            //今不透明(アルファ値1)なら
+            if (_sr.color.a == 1.0f)
+            {
+                //透明にする
+                _sr.color = new Color(defaultColor.r, defaultColor.g, defaultColor.b, 0.0f);
+            }
+            else
+            {
+                //元に戻す
+                _sr.color = defaultColor;
+            }
             yield return new WaitForSeconds(_blinkIntervalTime);
             timer += _blinkIntervalTime;
         }
 
-        //最後は必ず不透明になるようにする
-        _sr.enabled = true;
-
+        //最後は必ず不透明に戻す
+        _sr.color = defaultColor;
         _isInvincible = false;
     }
 

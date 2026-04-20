@@ -1,6 +1,14 @@
 using UnityEngine;
 using System.Collections;
-
+/// <summary>
+/// 3
+/// Instantiateする、AttackObjectやHPスクリプトにInstanceDataを渡す
+/// MakeAndSendInstanceData(InstanceData作成メソッド)の作成はシーン遷移前で、
+/// これはシーン遷移後の最初に呼ばれるという順番
+/// ＜仕事内容＞
+/// 実際にInstantiateでキャラクターたちを生成
+/// HPクラスやAttackObjectクラスにInstanceDataを渡す
+/// </summary>
 public class CharacterInitializer : MonoBehaviour
 {
     void Start()
@@ -9,83 +17,100 @@ public class CharacterInitializer : MonoBehaviour
         SetPlayerData();
     }
 
-    private IEnumerator InitializeFriendsDelayed()
-    {
-        yield return new WaitForSeconds(0.1f); // 遅らせたい秒数
-        SetFriendsData();
-    }
-
-    private void SetFriendsData()
-    {
-        var friends = CharInstanceManager.Instance.Friends;
-
-        Debug.Log($"SelectedFriends count = {friends.Count}");
-
-        for (int i = 0; i < friends.Count; i++)
-        {
-            FriendInstanceData instance = friends[i];
-
-            // 画面にキャラを生成
-            GameObject obj = Instantiate(instance.baseData.ActionPrefab);
-
-            // FriendHPへインスタンスデータ + インデックスを渡す
-            FriendHP hp = obj.GetComponent<FriendHP>();
-            if (hp != null)
-                hp.Initialize(instance, i);
-
-            //Friend4は遠距離回復なので個別にインスタンスデータを扱う
-            FriendBaseHeal friendHeal = obj.GetComponent<FriendBaseHeal>();
-            if(friendHeal != null)
-            {
-                friendHeal.Initialize(instance);
-            }
-
-            //Friend5は遠距離攻撃なので個別にインスタンスデータを扱う
-            Friend5ATK friend5ATK = obj.GetComponent<Friend5ATK>();
-            if (friend5ATK != null)
-            {
-                friend5ATK.Initialize(instance);
-            }
-
-
-            //FriendATKObjectへインスタンスデータを渡す
-            FriendATKObject[] atkObjs = obj.GetComponentsInChildren<FriendATKObject>(true);
-            if (atkObjs.Length == 0) Debug.Log("FriendATKObject が1つも見つかりません");
-
-            foreach (var atkObj in atkObjs)
-            {
-                if (atkObj != null)
-                    atkObj.Initialize(instance);
-            }
-
-
-        }
-    }
-
-
-
+    /// <summary>
+    /// Playerを実際に生成し、PlayerHPとPlayerAttackObjectに
+    /// InstanceDataを渡す
+    /// </summary>
     private void SetPlayerData()
     {
-        PlayerInstanceData instance = CharInstanceManager.Instance.Player;
+        //CharacterInstanceManagerが持ってるPlayerのInstanceDataをもらう
+        PlayerInstanceData instance = CharacterInstanceManager.Instance.PlayerInstanceData;
 
-        GameObject obj = Instantiate(instance.baseData.ActionPrefab);
+        //実際にPlayerを生成
+        GameObject obj = Instantiate(instance.Data.Prefab);
 
+        //橋渡しのための座標情報をinstanceDataに教えてあげる
+        instance.CharacterTransform = obj.transform;
+
+        //PlayerHPにInstanceDataを渡す
         PlayerHP hp = obj.GetComponent<PlayerHP>();
-        if (hp != null)
-            hp.Initialize(instance);
-
-        PlayerATKObject[] atkObjs = obj.GetComponentsInChildren<PlayerATKObject>(true);
-        if (atkObjs.Length == 0)
+        if (hp != null) 
         {
-            Debug.LogError("PlayerATKObject が1つも見つかりません");
+            hp.Initialize(instance);
+        }
+
+        GetInstanceData getData = obj.GetComponent<GetInstanceData>();
+        if (getData != null)
+        {
+            getData.Initialize(instance);
+        }
+        else
+        {
+            Debug.Log("GetInstanceDataのセットに失敗");
+        }
+
+        //子オブジェクトの攻撃用オブジェクトたちにInstanceDataを渡す
+        PlayerAttackObject[] attackObj = obj.GetComponentsInChildren<PlayerAttackObject>(true);
+        if (attackObj.Length == 0)
+        {
+            Debug.Log("PlayerAttaKObjectが1つも見つかりません");
             return;
         }
-        foreach (var atkObj in atkObjs)
+        foreach (var atkObj in attackObj)
         {
             if (atkObj != null)
+            {
                 atkObj.Initialize(instance);
+            }
         }
-
     }
 
+    /// <summary>
+    /// Friendたちを実際に生成し、FriendHPと
+    /// ICharacterInitializerインタフェースを持った全クラスに
+    /// InstanceDataを渡す
+    /// </summary>
+    private void SetFriendsData()
+    {
+        //CharacterInstanceManagerが持ってるFriendたちのFriendInstanceDataListをもらう(リスト単位で)
+        var friendsInstanceData_List = CharacterInstanceManager.Instance.FriendsInstanceDataList;
+
+        //---------ここからはfor文でFriend一体ごとに処理していく-----------
+        for (int i = 0; i < friendsInstanceData_List.Count; i++)
+        {
+            FriendInstanceData instance = friendsInstanceData_List[i];
+
+            //実際にFriend1体を生成
+            GameObject obj = Instantiate(instance.Data.Prefab);
+
+            //橋渡しのための座標情報をinstanceDataに教えてあげる
+            instance.CharacterTransform = obj.transform;
+
+            //FriendHPへInstanceDataに加えてインデックスも渡す(インデックスによってどのUIに表示させるかが変わってくるから)
+            FriendHP hp = obj.GetComponent<FriendHP>();
+            if (hp != null)
+            {
+                hp.Initialize(instance, i);
+            }
+
+            GetInstanceData getData = obj.GetComponent<GetInstanceData>();
+            if(getData != null)
+            {
+                getData.Initialize(instance);
+            }
+            else
+            {
+                Debug.Log("GetInstanceDataのセットに失敗");
+            }
+
+            //objが持ってる「ICharacterInitializerインタフェースを持った全クラス」を取得
+            var components = obj.GetComponentsInChildren<ICharacterInitializer>(true);
+
+            foreach (var c in components)
+            {
+                //それぞれの攻撃用オブジェクトなどのInitializeを呼び出してInstanceデータを渡す
+                c.Initialize(instance);
+            }
+        }
+    }
 }

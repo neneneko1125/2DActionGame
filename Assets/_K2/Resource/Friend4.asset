@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628956a304fb58a4fbe5fac171d70ba1, type: 3}
   m_Name: Friend4
   m_EditorClassIdentifier: Assembly-CSharp::FriendData
-  _friendName: "\u30A8\u30F3\u30BC\u30EB"
-  _maxHP: 25
-  _actionPrefab: {fileID: 5420053079692961230, guid: dae68b06b9939404ba3afdbcf4f4015e, type: 3}
-  _icon: {fileID: 21300000, guid: 4d984c616c4bc794f96cb3ba3d12e1ec, type: 3}
-  _exp_n: 20
-  _exp_m: 1.5
+  Name: "\u30A8\u30F3\u30BC\u30EB"
+  _prefab: {fileID: 5420053079692961230, guid: dae68b06b9939404ba3afdbcf4f4015e, type: 3}
+  _icon: {fileID: 21300000, guid: 4584b3ec906522348b96e46550481830, type: 3}
+  _type: 1
+  _maxHP: 30
+  _criticalProbability: 15
   _plusHP: 13
+  _exp_n: 15
+  _exp_m: 1.8

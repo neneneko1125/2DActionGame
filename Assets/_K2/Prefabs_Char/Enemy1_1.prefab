@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 757006642954091374}
   - component: {fileID: 8444192798669167726}
   m_Layer: 0
-  m_Name: Bikkuri
+  m_Name: AttackSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,8 +118,8 @@ Transform:
   m_GameObject: {fileID: 658062285636985798}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1768, y: -0.016, z: 0}
-  m_LocalScale: {x: 0.096774794, y: 0.028394075, z: 1}
+  m_LocalPosition: {x: -0.1687, y: -0.0149, z: 0}
+  m_LocalScale: {x: 0.11115387, y: 0.026283514, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3868157574663526006}
@@ -254,7 +254,7 @@ GameObject:
   - component: {fileID: 6053363045588767970}
   - component: {fileID: 4449923160697192680}
   m_Layer: 0
-  m_Name: ATKObject
+  m_Name: AttackObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f38e8f10b00643438eb902b77188005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyATKObject
-  _atk: 3
+  _attack: 2
 --- !u!212 &6053363045588767970
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2af06a22b102a094eaab6aa64ef32c84, type: 3}
+  m_Sprite: {fileID: -8363380156707305828, guid: 081711ce0fd5c57448ecc6c10be9a321, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -770,9 +770,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8524183665246816864}
+  - component: {fileID: 5440978404434636525}
   - component: {fileID: -516014480457712681}
   - component: {fileID: 3330068724444343296}
-  - component: {fileID: 5864389102525087484}
   - component: {fileID: 6148947678429565797}
   - component: {fileID: 1178416473938827992}
   - component: {fileID: 1688607650252645514}
@@ -800,6 +800,26 @@ Transform:
   - {fileID: 7317047813477895371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5440978404434636525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420053079692961230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b78d4dff49fb184296062523bdd859b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMeleeAttack
+  _intervalTime: 1
+  _activationDistance: 1.5
+  _signTime: 0.5
+  _animTime: 0.5
+  _anim: {fileID: 2687111270139399686}
+  _actionSign: {fileID: 81978418772607462}
+  target: {fileID: 0}
+  _attackCollider: {fileID: 4449923160697192680}
 --- !u!114 &-516014480457712681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -812,12 +832,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c5bcdc1c1eb1d46b87d5b2ee64c1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMoveState
-  _detectionRange: 5
+  _searchRadius: 5
   _stopDistance: 0.5
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 4224
   _chaseSpeed: 3
   _patrolSpeed: 1
   _enemySprite: {fileID: 4697126967864603662}
-  _wallChecker: {fileID: 658062285636985798}
+  _wallChecker: {fileID: 5436714679090786005}
 --- !u!114 &3330068724444343296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -832,31 +855,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHP
   _maxHP: 10
   _exp: 3
-  _invincibleTime: 0.15
+  _invincibleTime: 0.1
   _blinkIntervalTime: 0.05
   _hpBarImage: {fileID: 6835185222745963447}
-  _dropItem: {fileID: 427295853155965831, guid: 8b2fc9bf79aeda543a1fbaaba3c711bb, type: 3}
+  _dropItem: {fileID: 0}
   _sr: {fileID: 1022095506466825962}
---- !u!114 &5864389102525087484
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5420053079692961230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7af45b5e94a782944a9dd667fdab698c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyATK
-  _atkIntervalTime: 2
-  _atkTime: 0.1
-  _animTime: 0.5
-  _atkTimebefore: 0.5
-  attackRange: 2
-  _atkCollider: {fileID: 4449923160697192680}
-  _anim: {fileID: 2687111270139399686}
-  _atkSign: {fileID: 81978418772607462}
 --- !u!70 &6148947678429565797
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -918,7 +921,7 @@ Rigidbody2D:
     serializedVersion: 2
     m_Bits: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!212 &1688607650252645514

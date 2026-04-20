@@ -1,146 +1,109 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 現在のHP,最大HPはPlayerInstanceDataで管理
 /// </summary>
-public class PlayerHP : MonoBehaviour
+public class PlayerHP : BaseHP<PlayerInstanceData>
 {
-    private PlayerInstanceData _instance;   //インスタンスデータを収納
-
     private CharDataUIManager _ui;  
-
-    private bool _isInvincible = false;     //無敵時間にtrue
-    [SerializeField, Header("無敵時間")] private float _invincibleTime = 1.0f; 
-    [SerializeField, Header("点滅時間")] private float _blinkIntervalTime = 0.1f;   
-
-    [SerializeField] private SpriteRenderer _sr;
-    private PlayerATK _playerATK;
+    private PlayerAttack _playerAttack;
+    private PlayerInput _input;
 
     private void Awake()
     {
-        _playerATK = GetComponent<PlayerATK>();
+        _playerAttack = GetComponent<PlayerAttack>();
+        _input = GetComponent<PlayerInput>();
     }
 
     /// <summary>
     /// CharacterInitializerでゲーム開始時に呼び出される
+    /// 既にInstanceDataは作成されており、ステージ遷移前の
+    /// セーブデータをロードして、重ねてセーブした後で呼び出されるため、
+    /// UpdateHPLvEXPUIの呼び出しはコンストラクタ内で問題ない
     /// </summary>
     /// <param name="data"></param>
     public void Initialize(PlayerInstanceData data)
     {
+        //インスタンスデータを収納
+        _instanceData = data;
+
         _ui = FindAnyObjectByType<CharDataUIManager>();
 
-        //インスタンスデータを収納
-        _instance = data;
+        //OnChangeLvEXPが発生したらUpdateHPLvEXPUIを実行されるようにする
+        _instanceData.OnChangeLvEXP += UpdateHPLvEXPUI;
 
-        //OnChangeLvEXP が発生したらUpdateHPLvEXPUIを実行されるようにする
-        _instance.OnChangeLvEXP += UpdateHPLvEXPUI;
-
+        CheckDead();
         UpdateHPLvEXPUI();
     }
 
     /// <summary>
     /// HPを減らす
-    /// ダメージを受けた時にATKObjectで呼び出される
+    /// ダメージを受けた時にAttackObjectで呼び出される
     /// </summary>
     /// <param name="damage"></param>
     /// <returns></returns>
-    public IEnumerator ReduceHP(int damage)
+    public override IEnumerator ReduceHP(int damage)
     {
         //無敵またはガード中ならメソッドをぬける
-        if (_isInvincible || (_playerATK != null && _playerATK.IsGuard)) yield break;
-        
-        _instance.currentHP -= damage;  //HPを減らす
+        if (_isInvincible || (_playerAttack != null && _input.IsGuarding))
+        {
+            yield break;
+        }
+
+        damage = _instanceData.GetBuffDamegeCut(damage);    //バフを受けに行く
+
+        _instanceData.currentHP -= damage;  //HPを減らす
+
+        Save(); //HPの減少を保存
 
         SEManager.Instance.SEDamage();
 
-        DamageTextSpawn.Instance.SpawnDamageTextPlayer(transform.position, damage);
+        DamageAndHealTextSpawn.Instance.SpawnDamageTextPlayerAndFriend(transform.position, damage);
 
-        //HPが0以下になったら
-        if (_instance.currentHP <= 0)
-        {
-            //UIのために0にする(マイナスにならないように)
-            _instance.currentHP = 0;
-            Destroy(gameObject);
-        }
+        CheckDead();
 
         StartCoroutine(BlinkInvincible());
+
         UpdateHPUI();
     }
 
     /// <summary>
-    /// HealObjectから呼び出される
+    /// プレイヤー側は死亡したときシーン遷移する必要がある
     /// </summary>
-    /// <param name="healAmount"></param>
-    public void Heal(int healAmount)
+    protected override void CheckDead()
     {
-        //現在のレベルから最大HPを計算
-        int maxHP = _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
-
-        _instance.currentHP += healAmount;
-
-        //最大HPを超えないように
-        _instance.currentHP = Mathf.Clamp(_instance.currentHP, 0, maxHP);
-
-        UpdateHPUI();
-        Debug.Log("回復終了 現在のプレイヤーのHPは"+ _instance.currentHP);
-    }
-
-    /// <summary>
-    /// 無敵になったときの点滅
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator BlinkInvincible()
-    {
-        _isInvincible = true;
-        float timer = 0f;
-
-        //タイマーが指定時間より経過してなければ無敵継続
-        while (timer < _invincibleTime)
+        //HPが0以下になったら
+        if (_instanceData.currentHP <= 0)
         {
-            _sr.enabled = !_sr.enabled;     //点滅
-            yield return new WaitForSeconds(_blinkIntervalTime);
-            timer += _blinkIntervalTime;
+            //UIのために0にする(マイナスにならないように)
+            _instanceData.currentHP = 0;
+            SceneManager.LoadScene("TitleScene");
+            Destroy(gameObject);
         }
-
-        //最後は必ず不透明にする
-        _sr.enabled = true;
-        _isInvincible = false;
     }
 
     /// <summary>
     /// HPのUIを更新
     /// </summary>
-    private void UpdateHPUI()
+    protected override void UpdateHPUI()
     {
-        _ui.UpdateHPUIOfPlayer(_instance.currentHP, MaxHP());
+        _ui.UpdateHPUIOfPlayer(_instanceData.currentHP, _instanceData.MaxHP);
     }
 
     /// <summary>
     /// LvとEXPのUIを更新
     /// </summary>
-    private void UpdateLvEXPUI()
+    protected override void UpdateLvEXPUI()
     {
-        _ui.UpdateLvEXPUIOfPlayer(_instance.currentLv, _instance.currentEXP, _instance.NeedExp());
+        _ui.UpdateLvEXPUIOfPlayer(_instanceData.currentLv, _instanceData.currentEXP, _instanceData.NeedExp);
     }
 
     /// <summary>
-    /// イベント発生時などにこれを呼び出す
-    /// HP、Lv、EXP全て更新する
+    /// 親クラスで使ってるから消さないこと
     /// </summary>
-    private void UpdateHPLvEXPUI()
+    protected override void Save()
     {
-        UpdateHPUI();
-        UpdateLvEXPUI();
+        PlayerSaveManager.Save(_instanceData);
     }
-
-    /// <summary>
-    /// 現在のレベルから最大HPを計算して返す
-    /// </summary>
-    /// <returns></returns>
-    private int MaxHP()
-    {
-        return _instance.baseData.MaxHP + (_instance.currentLv - 1) * _instance.baseData.PlusHP;
-    }
-
 }

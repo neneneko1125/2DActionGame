@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Friend
   - Target
+  - Ground2
   layers:
   - Default
   - TransparentFX

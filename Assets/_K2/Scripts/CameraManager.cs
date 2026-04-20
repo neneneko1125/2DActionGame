@@ -27,7 +27,6 @@ public class CameraManager : MonoBehaviour
     {
         if (_target == null)
         {
-            Debug.Log("ƒvƒŒƒCƒ„[‚Ìæ“¾");
             _target = GameObject.FindGameObjectWithTag("Player").transform;
         }
 

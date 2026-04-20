@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Enemyは壁まで歩くとそのまま左右反転して切り返す
+/// Friend側はジャンプするので、FriendWallCheckerとは全く違う処理
+/// </summary>
 public class EnemyWallChecker : MonoBehaviour
 {
     [SerializeField] private GameObject _enemySprite;

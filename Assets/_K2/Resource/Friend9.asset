@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 628956a304fb58a4fbe5fac171d70ba1, type: 3}
+  m_Name: Friend9
+  m_EditorClassIdentifier: Assembly-CSharp::FriendData
+  Name: "\u3071\u305F\u3071\u305F"
+  _prefab: {fileID: 5420053079692961230, guid: 1fb148bc1b2b8c54d9ded7d991af3ce7, type: 3}
+  _icon: {fileID: 21300000, guid: b4ea9854b569b99478952f590faadebf, type: 3}
+  _type: 2
+  _maxHP: 80
+  _criticalProbability: 15
+  _plusHP: 20
+  _exp_n: 16
+  _exp_m: 2

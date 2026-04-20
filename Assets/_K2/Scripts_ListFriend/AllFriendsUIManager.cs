@@ -1,6 +1,7 @@
 using UnityEngine;
 
 /// <summary>
+/// 1
 /// 全キャラ一覧を生成・管理する
 /// OrganizationManager.AllFriendsを読む
 /// FriendButtonを人数分生成
@@ -19,11 +20,18 @@ public class AllFriendsUIManager : MonoBehaviour
             //_contentを親にしてFriendButtonを生成する
             var btn = Instantiate(_buttonPrefab, _content);
 
+            //FriendButtonのInitializeを呼び出す
             btn.Initialize(data, () => OnFriendClicked(data));
 
         }
     }
 
+    /// <summary>
+    /// 実質、FriendButtonから呼び出される
+    /// FriendButtonがイベントで選ばれたことを知らせて
+    /// このメソッドを実行する
+    /// </summary>
+    /// <param name="data"></param>
     private void OnFriendClicked(FriendData data)
     {
         //OrganizationManagerで既にチームに含まれてるか確認する
@@ -31,8 +39,8 @@ public class AllFriendsUIManager : MonoBehaviour
         if (OrganizationManager.Instance.TryAddFriend(data))
         {
             //出撃UIを更新
-            SelectedFriendsUIManager.Instance.Refresh();
-          //  Debug.Log("出撃枠へのデータの追加に成功しました");
+            SelectedFriendsUIManager.Instance.RefreshSlotUI();
+       
         }
     }
 
