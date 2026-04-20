@@ -9,11 +9,10 @@ public enum AttackType { None, Normal, Dash, Down, Up};
 public class PlayerInput : MonoBehaviour
 {
     public float MoveDirection {  get; private set; }   //移動方向
-    public bool JumpInput { get; private set; }     //ジャンプ入力
-
-    public AttackType AttackType { get; private set; }    //攻撃の種類
+    public bool IsJumpButtonPressed { get; private set; }     //ジャンプ入力
     public bool IsGuarding { get; private set; }    //ガード中trueになる
-
+    public AttackType CurrentAttackType { get; private set; }    //攻撃の種類
+   
 
     void Update()
     {
@@ -25,7 +24,7 @@ public class PlayerInput : MonoBehaviour
         }
 
         // 攻撃タイプ (PCとスマホ共通)
-        AttackType = GetAttackType();
+        CurrentAttackType = GetAttackType();
 
         //ガード入力処理
         if (!InputChangeButton.IsPressedSystem)
@@ -39,7 +38,6 @@ public class PlayerInput : MonoBehaviour
             IsGuarding = BoolButtonClick.IsGuard;
         }
     }
-
     /// <summary>
     /// 左右の移動とジャンプの入力
     /// </summary>
@@ -49,10 +47,9 @@ public class PlayerInput : MonoBehaviour
         if (!InputChangeButton.IsPressedSystem)
         {
             MoveDirection = Input.GetAxisRaw("Horizontal");
-            JumpInput = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space);
+            IsJumpButtonPressed = Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space);
         }
     }
-
     /// <summary>
     /// 攻撃の入力
     /// </summary>
@@ -110,6 +107,6 @@ public class PlayerInput : MonoBehaviour
     /// </summary>
     public void ClearAttackType()
     {
-        AttackType = AttackType.None;
+        CurrentAttackType = AttackType.None;
     }
 }

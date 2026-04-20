@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b292ef2439af7744e88916d260c0f418
+guid: c066a46fd1f3a0641b76fd1b6dbae106
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4374191159121549575
-    second: Ground6_0
+      213: -1553963298402860700
+    second: Ground1_4_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,11 +96,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ground6_0
+      name: Ground1_4_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9f6e7e4f050cb43c0800000000000000
-      internalID: -4374191159121549575
+      spriteID: 46104b40d963f6ae0800000000000000
+      internalID: -1553963298402860700
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ground6_0: -4374191159121549575
+      Ground1_4_0: -1553963298402860700
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

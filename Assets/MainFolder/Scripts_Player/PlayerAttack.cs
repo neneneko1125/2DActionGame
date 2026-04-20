@@ -95,7 +95,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         //AttackType‚Ìó‘Ô‚ğ‚İ‚ÄÀs‚·‚é
-        switch (_input.AttackType)
+        switch (_input.CurrentAttackType)
         {
             case AttackType.Normal:
                 StartCoroutine(NormalAttack()); 
