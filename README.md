@@ -1,4 +1,4 @@
-タイトル：SwordFriend\n
+タイトル：SwordFriend
 ジャンル：2Dアクションゲーム
 制作目的：自動で判断して動くNPCキャラクターを作るため
 使用エンジン：Unity6
