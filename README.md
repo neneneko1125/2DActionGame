@@ -8,4 +8,4 @@
 
 ソースコードはAssets→MainFolder→Scripts～に収納されています。
 
-また、YouTube活動も行っております。www.youtube.com/@レベルアップ_Unity
+また、YouTubeにて、ゲーム開発の支援活動も行っております。www.youtube.com/@レベルアップ_Unity
